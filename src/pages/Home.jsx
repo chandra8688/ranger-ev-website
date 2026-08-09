@@ -23,7 +23,8 @@ export default function Home() {
           "url": BASE_URL,
           "logo": `${BASE_URL}/logo.png`,
           "telephone": "+918000000000",
-          "email": "support@rangerev.com",
+          "email": "rangerevhub@gmail.com",
+
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "NH765",
