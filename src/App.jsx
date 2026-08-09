@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense, lazy } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -10,6 +10,7 @@ const Outlets = lazy(() => import('./pages/Outlets'));
 const OutletDetail = lazy(() => import('./pages/OutletDetail'));
 const Partner = lazy(() => import('./pages/Partner'));
 const Contact = lazy(() => import('./pages/Contact'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -37,6 +38,7 @@ export default function App() {
                 <Route path="/outlets/:id" element={<OutletDetail />} />
                 <Route path="/partner" element={<Partner />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
         </main>
