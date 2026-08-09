@@ -8,10 +8,10 @@
  * To migrate away from Formspree in the future, modify ONLY this file.
  */
 
-// In production, these should be securely injected via environment variables.
-// For demonstration, we use placeholder endpoints that simulate Formspree behavior.
-const CONTACT_ENDPOINT = import.meta.env.VITE_FORMSPREE_CONTACT_URL || 'https://formspree.io/f/xbjnzzrk'; // Example public endpoint
-const PARTNER_ENDPOINT = import.meta.env.VITE_FORMSPREE_PARTNER_URL || 'https://formspree.io/f/mqkopwle'; // Example public endpoint
+// Formspree production endpoints for the RANGER EV project.
+// Override via Vercel environment variables if the destination email changes in future.
+const CONTACT_ENDPOINT = import.meta.env.VITE_FORMSPREE_CONTACT_URL || 'https://formspree.io/f/xrpzpbda';
+const PARTNER_ENDPOINT = import.meta.env.VITE_FORMSPREE_PARTNER_URL || 'https://formspree.io/f/xdenekjb';
 
 /**
  * Helper to execute a form submission.
