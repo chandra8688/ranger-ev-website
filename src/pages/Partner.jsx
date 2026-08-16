@@ -185,10 +185,6 @@ export default function Partner() {
                       {formStatus === 'submitting' ? 'Submitting...' : 'Submit Location Inquiry'}
                       {formStatus !== 'submitting' && <ArrowRight size={18} aria-hidden="true" />}
                     </button>
-
-                    <p style={{ fontSize: '0.75rem', color: 'var(--txt-muted)', textAlign: 'center', marginTop: '0.5rem' }}>
-                      This form is for demonstration. In production, this will connect to a backend service.
-                    </p>
                   </form>
                 </>
               )}

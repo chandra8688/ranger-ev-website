@@ -71,6 +71,32 @@
   --dur-slow: 450ms;
   --transition-fast: var(--dur-fast) var(--ease);
   --transition-base: var(--dur-base) var(--ease);
+
+  /* ─── Alias / Compatibility Tokens ────────────────────────────────────────
+     These map the shorthand names used throughout component JSX files to the
+     canonical design tokens defined above. Adding them here (rather than
+     editing every JSX file) keeps component code unchanged.
+     ─────────────────────────────────────────────────────────────────────── */
+
+  /* White / Off-White surfaces */
+  --clr-white:          #FFFFFF;           /* pure white — alias of --bg-main        */
+  --clr-offwhite:       #F6F8F5;           /* near-white surface — alias of --bg-surface */
+
+  /* Green aliases */
+  --clr-ranger-green:   #1B7A46;           /* primary brand green — alias of --clr-primary */
+  --clr-green-pale:     #EFF8F2;           /* lightest green tint — alias of --clr-primary-pale */
+  --clr-pale-green:     #E4F5EB;           /* pale green surface — alias of --clr-primary-light */
+
+  /* Accent alias */
+  --clr-orange:         #C45614;           /* route/highway orange — alias of --clr-accent */
+
+  /* Neutral grays (not in original palette — added for Outlets Coming Soon card) */
+  --clr-gray-100:       #EAEEEA;
+  --clr-gray-300:       #B8C2B8;
+  --clr-gray-500:       #6B7A6B;
+
+  /* Dark border alias (for OutletDetail on-dark contexts) */
+  --border-on-dark:     rgba(255, 255, 255, 0.1);  /* alias of --border-dark */
 }
 
 
@@ -327,7 +353,7 @@ p {
 }
 
 .navbar__logo-wrap { display: flex; align-items: center; flex-shrink: 0; }
-.navbar__logo { height: 56px; width: auto; border-radius: var(--radius-sm); object-fit: contain; }
+.navbar__logo { height: 56px; width: auto; object-fit: contain; }
 
 .navbar__nav {
   display: flex;
@@ -414,6 +440,18 @@ p {
   border-bottom: 1px solid var(--border-dark);
 }
 
+/* Transparent logo — no white box needed */
+.footer__logo-wrap {
+  display: inline-flex;
+  margin-bottom: 1rem;
+}
+.footer__logo-wrap img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Legacy alias — kept for safety */
 .footer__logo-box {
   display: inline-flex;
   background: var(--bg-main);

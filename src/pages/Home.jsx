@@ -9,6 +9,7 @@ import { companyInfo } from '../data/company';
 import SEO from '../components/SEO';
 import { BASE_URL } from '../config';
 
+
 export default function Home() {
   return (
     <main>
@@ -22,7 +23,7 @@ export default function Home() {
           "name": "RANGER EV",
           "url": BASE_URL,
           "logo": `${BASE_URL}/logo.png`,
-          "telephone": "+918000000000",
+          "telephone": companyInfo.contact.primaryPhone,
           "email": "rangerevhub@gmail.com",
 
           "address": {

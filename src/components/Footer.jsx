@@ -14,10 +14,9 @@ export default function Footer() {
 
           {/* Column 1: Brand */}
           <div className="footer__brand-col">
-            {/* The JPEG logo has a white background. By wrapping it in a white box with padding and rounded corners, it looks intentional against the dark footer. */}
-            <Link to="/" className="footer__logo-box" aria-label="RANGER EV — Home">
+            <Link to="/" className="footer__logo-wrap" aria-label="RANGER EV — Home">
               <img
-                src={companyInfo.branding.logo}
+                src="/images/brand/ranger-logo-transparent.png"
                 alt="RANGER EV"
                 className="footer__logo"
                 loading="lazy"

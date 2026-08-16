@@ -30,7 +30,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" className="navbar__logo-wrap" onClick={close} aria-label="RANGER EV — Home">
           <img
-            src={companyInfo.branding.logo}
+            src="/images/brand/ranger-logo-transparent.png"
             alt="RANGER EV Official Logo"
             className="navbar__logo"
             loading="eager"
