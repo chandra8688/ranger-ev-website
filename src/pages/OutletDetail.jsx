@@ -113,7 +113,7 @@ export default function OutletDetail() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             
             {/* Title Card */}
-            <div style={{ background: 'var(--surface-elevated)', padding: '2.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)', border: '1px solid var(--border-light)' }}>
+            <div className="detail-card" style={{ background: 'var(--surface-elevated)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)', border: '1px solid var(--border-light)' }}>
               <span className="status-badge status-badge--op" style={{ marginBottom: '1rem', color: 'var(--ranger-green)' }}>
                 <span className="status-dot"></span>
                 Operational
@@ -137,7 +137,7 @@ export default function OutletDetail() {
             </div>
 
             {/* Spec Card */}
-            <div style={{ background: 'var(--surface-elevated)', padding: '2.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)', border: '1px solid var(--border-light)' }}>
+            <div className="detail-card" style={{ background: 'var(--surface-elevated)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)', border: '1px solid var(--border-light)' }}>
               <h2 className="h3" style={{ marginBottom: '1.5rem', color: 'var(--text-primary-dark)' }}>Charging Details</h2>
               
               <div className="info-strip info-strip--dark">
@@ -161,9 +161,9 @@ export default function OutletDetail() {
             </div>
 
             {/* Amenities Card */}
-            <div style={{ background: 'var(--surface-elevated)', padding: '2.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)', border: '1px solid var(--border-light)' }}>
+            <div className="detail-card" style={{ background: 'var(--surface-elevated)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)', border: '1px solid var(--border-light)' }}>
               <h2 className="h3" style={{ marginBottom: '1.5rem', color: 'var(--text-primary-dark)' }}>Amenities</h2>
-              <ul style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', rowGap: '1.75rem', columnGap: '1rem' }}>
+              <ul className="outlet-amenities-grid">
                 {outlet.amenities.map((item, idx) => (
                   <li key={item.id} className="amenity-item-hover" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-secondary-dark)' }}>
                     <div className="amenity-icon-wrapper" style={{ color: 'var(--ranger-green)', transition: 'color 0.2s ease' }}>{getAmenityIcon(item.id)}</div>

@@ -475,12 +475,9 @@ p {
 /* Mobile drawer: full-viewport overlay with panel on right */
 .mobile-drawer {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  max-width: 100%; /* full-width on mobile, constrained below */
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
   background: transparent;
   z-index: 200;
   display: flex;
@@ -512,14 +509,14 @@ p {
   position: relative;
   z-index: 1;
   height: 100%;
-  width: min(320px, 85vw);
+  width: 100vw;
   background: var(--bg-main);
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
-  padding: 5rem 2rem 2rem;
+  padding: 6rem 2rem 2rem;
   overflow-y: auto;
   pointer-events: auto;
+  align-items: center;
 }
 .mobile-drawer .nav-link {
   padding: 1rem 0;
@@ -539,6 +536,7 @@ p {
   .nav-toggle    { display: flex; }
 }
 @media (max-width: 767px) {
+  .navbar__inner { z-index: 201; position: relative; }
   .navbar__actions { gap: 0.5rem; }
   #navbar-cta { display: none !important; }
   .navbar__wordmark { display: flex !important; }
@@ -1191,6 +1189,47 @@ p {
 
   /* Outlet detail amenities grid: 1 col on small screens */
   .amenity-grid-2 { grid-template-columns: 1fr !important; }
+
+/* Base Detail Card and Outlet Amenities classes for desktop */
+.detail-card {
+  background: var(--surface-elevated);
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+}
+.outlet-amenities-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 1.75rem;
+  column-gap: 1rem;
+}
+
+@media (max-width: 767px) {
+  /* Fix Outlet Details mobile */
+  .detail-card {
+    padding: 1.5rem !important;
+  }
+  .outlet-amenities-grid {
+    grid-template-columns: 1fr 1fr !important;
+    row-gap: 1.5rem !important;
+    column-gap: 0.5rem !important;
+  }
+  /* Fix masonry leakage */
+  .form-grid .span-2 { grid-column: 1 / -1 !important; }
+
+  body, html {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Ensure images don't overflow */
+  img { max-width: 100%; height: auto; }
+}
+
+@media (max-width: 480px) {
+  /* Removed 1-col override to preserve 2-col on 390px screens */
+}
 
   /* Chargers page image container — ensure it doesn't overflow */
   .charger-image-wrap { min-height: 320px !important; }

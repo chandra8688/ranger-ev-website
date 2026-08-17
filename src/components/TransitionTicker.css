@@ -11,7 +11,7 @@
 
 @media (max-width: 768px) {
   .transition-ticker {
-    height: 56px;
+    height: 60px;
   }
 }
 
@@ -25,6 +25,8 @@
 .ticker-segment {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .ticker-phrase {
@@ -33,12 +35,24 @@
   letter-spacing: 0.15em;
   color: #F5F5F2;
   text-transform: uppercase;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .ticker-bullet {
   color: #3D8B43;
   margin: 0 4rem;
   font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+  .transition-ticker__inner {
+    animation-duration: 25s;
+  }
+  .ticker-bullet {
+    margin: 0 2.5rem;
+  }
 }
 
 @keyframes ticker {
