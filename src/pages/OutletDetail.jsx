@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import { MapPin, Navigation, Clock, Zap, Coffee, Phone, ArrowLeft, AlertCircle, MessageSquare, SquareParking, UtensilsCrossed, Wifi, Toilet, Sofa, Cable, Car } from 'lucide-react';
 import { outletsData } from '../data/outlets';
 import { companyInfo } from '../data/company';
-import HighwayComposition from '../components/illustrations/HighwayComposition';
 import SEO from '../components/SEO';
 import { BASE_URL } from '../config';
 
@@ -90,7 +89,13 @@ export default function OutletDetail() {
       `}</style>
       
       <div style={{ position: 'relative', width: '100%', background: '#111214', overflow: 'hidden' }}>
-        <HighwayComposition style={{ width: '100%', height: 'auto', maxHeight: '420px', display: 'block' }} />
+        <img
+          src="/images/cinematic/vision_charging_hub_1786922492514.webp"
+          alt="Atmospheric editorial visual representing the RANGER charging experience"
+          fetchPriority="high"
+          style={{ width: '100%', height: '420px', objectFit: 'cover', opacity: 0.85 }}
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--surface-dark) 0%, transparent 40%)' }}></div>
       </div>
 
       <div className="container" style={{ marginTop: '-2rem', position: 'relative', zIndex: 10 }}>
@@ -184,12 +189,12 @@ export default function OutletDetail() {
               ></iframe>
               <div style={{ marginTop: '1.25rem', padding: '0 1rem 0.5rem' }}>
                 <h3 className="h4" style={{ marginBottom: '0.5rem', color: 'var(--text-primary-dark)' }}>Address</h3>
-                <p style={{ color: 'var(--text-secondary-dark)', fontSize: '0.9rem', lineHeight: '1.6' }}>
+                <p style={{ color: '#AEB5BC', lineHeight: '1.6' }}>
                   {outlet.fullAddress}
                 </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--clr-orange)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem', fontSize: '0.9rem', color: 'var(--clr-primary)' }}>
                   <AlertCircle size={16} aria-hidden="true" />
-                  <span>Landmark: {outlet.landmark}</span>
+                  <span style={{ color: '#AEB5BC' }}>Landmark: {outlet.landmark}</span>
                 </div>
               </div>
             </div>

@@ -14,15 +14,21 @@ export default function Footer() {
 
           {/* Column 1: Brand */}
           <div className="footer__brand-col">
-            <Link to="/" className="footer__logo-wrap" aria-label="RANGER EV — Home">
-              <img
-                src="/images/brand/ranger-logo-transparent.png"
-                alt="RANGER EV"
-                className="footer__logo"
-                loading="lazy"
-              />
+            <Link to="/" className="footer__brand-lockup" aria-label="RANGER EV — Home">
+              <div className="footer__logo-wrap">
+                <img
+                  src="/images/brand/ranger-logo-navbar.png"
+                  alt="RANGER EV"
+                  className="footer__logo"
+                  loading="lazy"
+                />
+              </div>
+              <div className="navbar__wordmark footer__wordmark-override">
+                <span className="navbar__wordmark-title">RANGER</span>
+                <span className="navbar__wordmark-accent" aria-hidden="true"></span>
+                <span className="navbar__wordmark-tagline">POWERING EVERY JOURNEY</span>
+              </div>
             </Link>
-            <h2 className="footer__tagline">Powering Every Journey</h2>
             <p className="footer__desc">
               RANGER EV is an infrastructure provider building a reliable, high-speed electric vehicle charging network for India's national highways.
             </p>

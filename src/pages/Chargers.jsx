@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Zap, SplitSquareHorizontal } from 'lucide-react';
-import RangerChargerIllustration from '../components/illustrations/RangerChargerIllustration';
+
 import TransitionTicker from '../components/TransitionTicker';
 import SEO from '../components/SEO';
 import { BASE_URL } from '../config';
@@ -37,7 +37,7 @@ export default function Chargers() {
                   </div>
                   <div>
                     <h3 className="h4" style={{ marginBottom: '0.25rem' }}>60 kW Direct Current</h3>
-                    <p style={{ fontSize: '0.95rem' }}>Provides substantial power to rapidly replenish modern EV batteries.</p>
+                    <p>Provides substantial power to rapidly replenish modern EV batteries.</p>
                   </div>
                 </div>
 
@@ -47,18 +47,24 @@ export default function Chargers() {
                   </div>
                   <div>
                     <h3 className="h4" style={{ marginBottom: '0.25rem' }}>Dual CCS2 Connectors</h3>
-                    <p style={{ fontSize: '0.95rem' }}>Equipped with two industry-standard CCS2 charging guns, capable of charging two vehicles simultaneously.</p>
+                    <p>Equipped with two industry-standard CCS2 charging guns, capable of charging two vehicles simultaneously.</p>
                   </div>
                 </div>
 
               </div>
             </div>
 
-            {/* Right: Illustration */}
-            <div className="flex-center" style={{ padding: '2rem' }}>
-              <RangerChargerIllustration
-                style={{ height: '560px', width: 'auto', filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.08))' }}
-              />
+            {/* Right: Product Image */}
+            <div className="flex-center" style={{ padding: '1rem', height: '100%' }}>
+              <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: '500px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img
+                  src="/images/chargers/charger_asthetic_transparent.webp"
+                  alt="RANGER 60 kW DC fast charger"
+                  loading="lazy"
+                  decoding="async"
+                  style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain', maxHeight: '800px' }}
+                />
+              </div>
             </div>
 
           </div>

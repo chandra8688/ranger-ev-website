@@ -4,6 +4,7 @@ import { ArrowRight, MapPin, Zap, Clock, ShieldCheck, Coffee, Wifi, Car } from '
 import { companyInfo } from '../data/company';
 import SEO from '../components/SEO';
 import { BASE_URL } from '../config';
+import TransitionTicker from '../components/TransitionTicker';
 
 export default function Home() {
   return (
@@ -42,8 +43,9 @@ export default function Home() {
       <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: '80px', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
           <img 
-            src="/images/cinematic/hero_cinematic_highway_v2_1786922470899.jpg" 
-            alt="Cinematic Highway" 
+            src="/images/cinematic/hero_cinematic_highway_v2_1786922470899.webp"
+            alt="Cinematic highway landscape representing the long drive"
+            fetchPriority="high"
             style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '75% center' }}
           />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(17,18,20,0.95) 0%, rgba(17,18,20,0.5) 45%, transparent 100%)' }}></div>
@@ -52,7 +54,7 @@ export default function Home() {
 
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <div style={{ maxWidth: '640px' }}>
-            <span className="t-eyebrow">RANGER EV</span>
+            <span className="hero-eyebrow">RANGER EV</span>
             <h1 style={{ marginBottom: '1.5rem', lineHeight: 1.05 }}>Powering<br />Every Journey</h1>
             <p className="t-lead" style={{ marginBottom: '2.5rem', color: 'rgba(255,255,255,0.8)' }}>
               Building a reliable EV fast-charging network for India's highways.
@@ -75,16 +77,7 @@ export default function Home() {
       {/* ========================================================
           SECTION 1.5: TRUST STRIP
           ======================================================== */}
-      <div style={{ background: 'var(--clr-white)', padding: '1.5rem 0', borderBottom: '1px solid var(--border-light)' }}>
-        <div className="container" style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center', color: 'var(--txt-muted)', fontSize: '0.9rem', fontWeight: '500' }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}><Clock size={16}/> 24×7</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}><Zap size={16}/> 60 kW DC</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}><Zap size={16}/> CCS2</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}><Coffee size={16}/> Cafe</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}><Wifi size={16}/> Free Wi-Fi</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}><MapPin size={16}/> Highway Location</span>
-        </div>
-      </div>
+      <TransitionTicker />
 
       {/* ========================================================
           SECTION 2: VISION / ABOUT
@@ -93,7 +86,7 @@ export default function Home() {
         <div className="container">
           <div className="editorial-grid">
             <div className="editorial-grid__left">
-              <img src="/images/cinematic/vision_charging_hub_1786922492514.jpg" alt="EV Charging Environment" style={{ width: '100%', height: 'auto', borderRadius: '4px', objectFit: 'cover', aspectRatio: '4/5' }} />
+              <img src="/images/cinematic/vision_charging_hub_1786922492514.webp" alt="Clean, premium EV charging hub environment at night" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto', borderRadius: '4px', objectFit: 'cover', aspectRatio: '4/5' }} />
             </div>
             <div className="editorial-grid__right" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <span className="t-eyebrow t-eyebrow--orange">The Vision</span>
@@ -104,7 +97,7 @@ export default function Home() {
                 We deploy robust 60 kW CCS2 DC fast chargers at strategic locations, ensuring 
                 that drivers can travel cross-country with total confidence. Operational since August 2026.
               </p>
-              <img src="/images/cinematic/vision_highway_journey_1786922522954.jpg" alt="Highway EV Journey" style={{ width: '85%', height: 'auto', borderRadius: '4px', objectFit: 'cover', aspectRatio: '4/5', marginLeft: 'auto', display: 'block', marginTop: '2rem' }} />
+              <img src="/images/cinematic/vision_highway_journey_1786922522954.webp" alt="Electric vehicle traveling on a dark highway" loading="lazy" decoding="async" style={{ width: '85%', height: 'auto', borderRadius: '4px', objectFit: 'cover', aspectRatio: '4/5', marginLeft: 'auto', display: 'block', marginTop: '2rem' }} />
             </div>
           </div>
         </div>
@@ -113,26 +106,26 @@ export default function Home() {
       {/* ========================================================
           SECTION 3: DESIGNED AROUND THE JOURNEY
           ======================================================== */}
-      <section className="section section--lg" style={{ background: 'var(--bg-surface)' }}>
+      <section className="section section--lg on-dark" style={{ background: 'var(--bg-surface)' }}>
         <div className="container">
           <div className="grid-auto-3" style={{ gap: '4rem' }}>
             
             <div style={{ paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-              <Zap size={28} style={{ color: 'var(--txt-inverse)', marginBottom: '1.5rem' }} />
-              <h3 className="h4" style={{ marginBottom: '1rem', color: 'var(--txt-inverse)' }}>Fast Charging</h3>
-              <p style={{ fontSize: '1.05rem', color: 'var(--txt-muted)', lineHeight: 1.7 }}>Dual-gun 60 kW DC chargers utilizing the CCS2 standard, capable of charging two vehicles simultaneously to get you back on the road quickly.</p>
+              <Zap size={28} style={{ color: 'var(--ranger-green)', marginBottom: '1.5rem' }} />
+              <h3 className="h4" style={{ marginBottom: '1rem' }}>Fast Charging</h3>
+              <p style={{ fontSize: '1.125rem', lineHeight: 1.65 }}>Dual-gun 60 kW DC chargers utilizing the CCS2 standard, capable of charging two vehicles simultaneously to get you back on the road quickly.</p>
             </div>
 
             <div style={{ paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-              <Clock size={28} style={{ color: 'var(--txt-inverse)', marginBottom: '1.5rem' }} />
-              <h3 className="h4" style={{ marginBottom: '1rem', color: 'var(--txt-inverse)' }}>24×7 Access</h3>
-              <p style={{ fontSize: '1.05rem', color: 'var(--txt-muted)', lineHeight: 1.7 }}>The highway never sleeps, and neither do we. RANGER outlets are operational 24 hours a day, 7 days a week for uninterrupted travel.</p>
+              <Clock size={28} style={{ color: 'var(--ranger-green)', marginBottom: '1.5rem' }} />
+              <h3 className="h4" style={{ marginBottom: '1rem' }}>24×7 Access</h3>
+              <p style={{ fontSize: '1.125rem', lineHeight: 1.65 }}>The highway never sleeps, and neither do we. RANGER outlets are operational 24 hours a day, 7 days a week for uninterrupted travel.</p>
             </div>
 
             <div style={{ paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-              <MapPin size={28} style={{ color: 'var(--txt-inverse)', marginBottom: '1.5rem' }} />
-              <h3 className="h4" style={{ marginBottom: '1rem', color: 'var(--txt-inverse)' }}>Strategic Locations</h3>
-              <p style={{ fontSize: '1.05rem', color: 'var(--txt-muted)', lineHeight: 1.7 }}>Situated on major national routes with easy on-and-off access, designed specifically to serve long-distance commuters and travelers.</p>
+              <MapPin size={28} style={{ color: 'var(--ranger-green)', marginBottom: '1.5rem' }} />
+              <h3 className="h4" style={{ marginBottom: '1rem' }}>Strategic Locations</h3>
+              <p style={{ fontSize: '1.125rem', lineHeight: 1.65 }}>Situated on major national routes with easy on-and-off access, designed specifically to serve long-distance commuters and travelers.</p>
             </div>
 
           </div>
@@ -144,8 +137,8 @@ export default function Home() {
           ======================================================== */}
       <section className="section section--lg on-dark" style={{ background: 'var(--bg-dark-surface)', padding: 0, overflow: 'hidden' }}>
         <div className="split-50">
-          <div style={{ position: 'relative', minHeight: '600px' }}>
-            <img src="/images/cinematic/tech_charger_product_1786922543295.jpg" alt="Conceptual Technology Representation" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div style={{ position: 'relative', minHeight: '600px', background: 'var(--bg-dark-surface)' }}>
+            <img src="/images/chargers/charger_home_transparent.webp" alt="RANGER 60 kW DC Fast Charger" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center bottom', paddingBottom: '2rem', paddingTop: '2rem' }} />
           </div>
           <div style={{ padding: '6rem 4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span className="t-eyebrow t-eyebrow--glow">Technology</span>
@@ -178,9 +171,9 @@ export default function Home() {
       {/* ========================================================
           SECTION 5: OUTLET #01
           ======================================================== */}
-      <section className="section section--lg" style={{ position: 'relative', overflow: 'hidden' }}>
+      <section className="section section--lg on-dark" style={{ position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img src="/images/cinematic/network_highway_scene_1786922800043.jpg" alt="Highway Atmosphere" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src="/images/cinematic/network_highway_scene_1786922800043.webp" alt="Atmospheric highway scene at dusk" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, var(--bg-main) 0%, rgba(17,18,20,0.8) 100%)' }}></div>
         </div>
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
@@ -235,35 +228,45 @@ export default function Home() {
 
           <div className="masonry-grid">
             <div className="amenity-card masonry-item">
-              <img src="/images/cinematic/amenity_charging_1786922724004.jpg" alt="60kW Fast Charging" />
+              <div className="editorial-image">
+                <img src="/images/cinematic/amenity_charging_1786922724004.webp" alt="Vehicle charging port connected to a charger" loading="lazy" decoding="async" />
+              </div>
               <div className="amenity-card-content">
                 <div className="amenity-card-title">60kW Fast Charging</div>
               </div>
             </div>
             
             <div className="amenity-card masonry-item">
-              <img src="/images/cinematic/amenity_parking.jpg" alt="Ample Parking" />
+              <div className="editorial-image">
+                <img src="/images/cinematic/amenity_parking.webp" alt="Spacious parking bays at a charging facility" loading="lazy" decoding="async" />
+              </div>
               <div className="amenity-card-content">
                 <div className="amenity-card-title">Ample Parking</div>
               </div>
             </div>
 
             <div className="amenity-card masonry-item">
-              <img src="/images/cinematic/amenity_cafe_1786922734138.jpg" alt="Food & Refreshments" />
+              <div className="editorial-image">
+                <img src="/images/cinematic/amenity_cafe_1786922734138.webp" alt="Modern cafe interior with seating" loading="lazy" decoding="async" />
+              </div>
               <div className="amenity-card-content">
                 <div className="amenity-card-title">Food & Refreshments</div>
               </div>
             </div>
             
             <div className="amenity-card masonry-item">
-              <img src="/images/cinematic/amenity_toilets_1786922787166.jpg" alt="Clean Restrooms" />
+              <div className="editorial-image">
+                <img src="/images/cinematic/amenity_toilets_1786922787166.webp" alt="Modern clean restroom facilities" loading="lazy" decoding="async" />
+              </div>
               <div className="amenity-card-content">
                 <div className="amenity-card-title">Clean Restrooms</div>
               </div>
             </div>
             
-            <div className="amenity-card masonry-item" style={{ gridColumn: 'span 2' }}>
-              <img src="/images/cinematic/amenity_wifi_1786922760773.jpg" alt="Free Wi-Fi" style={{ aspectRatio: '21/9', objectFit: 'cover', width: '100%' }} />
+            <div className="amenity-card masonry-item masonry-item--wide">
+              <div className="editorial-image">
+                <img src="/images/cinematic/amenity_wifi_1786922760773.webp" alt="Conceptual digital connectivity graphic" loading="lazy" decoding="async" style={{ aspectRatio: '21/9', objectFit: 'cover', width: '100%' }} />
+              </div>
               <div className="amenity-card-content">
                 <div className="amenity-card-title">Free Wi-Fi</div>
               </div>
@@ -280,7 +283,7 @@ export default function Home() {
           <div className="editorial-grid">
             <div className="editorial-grid__left" style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem' }}>
               <span className="t-eyebrow" style={{ color: 'var(--txt-muted)' }}>The Future</span>
-              <h2 style={{ marginBottom: '1.5rem' }}>Expanding the RANGER Network</h2>
+              <h2 className="h1" style={{ marginBottom: '1.5rem', lineHeight: 1.1 }}>Expanding the RANGER Network</h2>
             </div>
             <div className="editorial-grid__right" style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem' }}>
               <p className="t-lead" style={{ marginTop: '1.5rem', marginBottom: '1.5rem', color: 'var(--txt-inverse)' }}>
@@ -305,7 +308,7 @@ export default function Home() {
           ======================================================== */}
       <section className="section section--lg" style={{ position: 'relative', overflow: 'hidden', minHeight: '80vh', display: 'flex', alignItems: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img src="/images/cinematic/final_cta_highway_1786922809369.jpg" alt="Highway Final CTA" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src="/images/cinematic/final_cta_highway_1786922809369.webp" alt="Empty highway leading to the horizon" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(17,18,20,0.95) 0%, rgba(17,18,20,0.5) 100%)' }}></div>
         </div>
         <div className="container" style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>

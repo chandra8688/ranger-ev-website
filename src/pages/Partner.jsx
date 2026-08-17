@@ -50,7 +50,7 @@ export default function Partner() {
 
           {/* Left: Info */}
           <div className="editorial-grid__left" style={{ display: 'flex', flexDirection: 'column' }}>
-            <h2 className="h3" style={{ marginBottom: '1.5rem' }}>Why Partner With RANGER?</h2>
+            <h2 className="h2" style={{ marginBottom: '1.5rem', lineHeight: 1.1 }}>Why Partner With RANGER?</h2>
             <div className="green-rule" style={{ marginBottom: '3rem' }}></div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', flexGrow: 1 }}>
@@ -81,14 +81,14 @@ export default function Partner() {
 
             {/* Editorial Anchor to fix empty lower-left space */}
             <div style={{ marginTop: 'auto', paddingTop: '4rem' }}>
-              <div style={{ fontSize: '10rem', fontWeight: 800, lineHeight: 0.8, color: 'rgba(17,18,20,0.03)', letterSpacing: '-0.05em' }}>
+              <div className="partner-editorial-01" style={{ fontSize: '10rem', fontWeight: 800, lineHeight: 0.8, color: 'rgba(17,18,20,0.03)', letterSpacing: '-0.05em' }}>
                 01
               </div>
             </div>
 
             <div style={{ background: '#ffffff', padding: '2rem', borderRadius: 'var(--radius-lg)', marginTop: '2rem', border: '1px solid rgba(17,18,20,0.08)' }}>
               <h3 className="h4" style={{ marginBottom: '1rem', color: '#111214' }}>Direct Contact</h3>
-              <p style={{ color: '#4F565D', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
+              <p style={{ color: '#4F565D', marginBottom: '1.5rem' }}>
                 Prefer to speak directly with our partnerships team?
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -122,7 +122,7 @@ export default function Partner() {
               ) : (
                 <>
                   <h2 className="h3" style={{ marginBottom: '0.5rem', color: '#111214' }}>Submit a Location</h2>
-                  <p style={{ color: '#4F565D', marginBottom: '2rem', fontSize: '0.95rem' }}>
+                  <p style={{ color: '#4F565D', marginBottom: '2rem' }}>
                     Provide details about your property to help us evaluate its suitability for a fast-charging hub.
                   </p>
 

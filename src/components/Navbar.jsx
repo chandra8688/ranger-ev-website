@@ -27,15 +27,22 @@ export default function Navbar() {
   return (
     <header className={`navbar${scrolled ? ' scrolled' : ''}`}>
       <div className="container navbar__inner">
-        {/* Logo */}
-        <Link to="/" className="navbar__logo-wrap" onClick={close} aria-label="RANGER EV — Home">
-          <img
-            src="/images/brand/ranger-logo-transparent.png"
-            alt="RANGER EV Official Logo"
-            className="navbar__logo"
-            loading="eager"
-            fetchpriority="high"
-          />
+        {/* Logo & Brand Block */}
+        <Link to="/" className="navbar__brand" onClick={close} aria-label="RANGER EV — Home">
+          <div className="navbar__logo-wrap">
+            <img
+              src="/images/brand/ranger-logo-navbar.png"
+              alt="RANGER EV Official Logo"
+              className="navbar__logo"
+              loading="eager"
+              fetchPriority="high"
+            />
+          </div>
+          <div className="navbar__wordmark">
+            <span className="navbar__wordmark-title">RANGER</span>
+            <span className="navbar__wordmark-accent" aria-hidden="true"></span>
+            <span className="navbar__wordmark-tagline">POWERING EVERY JOURNEY</span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
@@ -56,9 +63,6 @@ export default function Navbar() {
 
         {/* Actions */}
         <div className="navbar__actions">
-          <Link to="/outlets" className="btn btn--primary btn--sm" style={{ display: 'none' }} aria-hidden="true" tabIndex={-1}>
-            Find an Outlet
-          </Link>
           <Link
             to="/outlets"
             className="btn btn--primary btn--sm"
@@ -77,35 +81,37 @@ export default function Navbar() {
             aria-expanded={mobileOpen}
           >
             {mobileOpen
-              ? <X size={22} aria-hidden="true" />
-              : <Menu size={22} aria-hidden="true" />
+              ? <X size={28} color="#ffffff" strokeWidth={2.5} aria-hidden="true" />
+              : <Menu size={28} color="#ffffff" strokeWidth={2.5} aria-hidden="true" />
             }
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
-      <nav className={`mobile-drawer${mobileOpen ? ' open' : ''}`} aria-label="Mobile navigation">
-        {links.map(({ to, label, end }) => (
-          <NavLink
-            key={to}
-            to={to}
-            end={end}
-            className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+      {/* Mobile Drawer — full-viewport overlay, panel slides in from right */}
+      <nav className={`mobile-drawer${mobileOpen ? ' open' : ''}`} aria-label="Mobile navigation" onClick={(e) => { if (e.target === e.currentTarget) close(); }}>
+        <div className="mobile-drawer__panel">
+          {links.map(({ to, label, end }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={end}
+              className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+              onClick={close}
+            >
+              {label}
+            </NavLink>
+          ))}
+          <Link
+            to="/outlets"
+            className="btn btn--primary"
             onClick={close}
+            style={{ marginTop: '1.5rem', justifyContent: 'center' }}
           >
-            {label}
-          </NavLink>
-        ))}
-        <Link
-          to="/outlets"
-          className="btn btn--primary"
-          onClick={close}
-          style={{ marginTop: '0.5rem', justifyContent: 'center' }}
-        >
-          <MapPin size={16} aria-hidden="true" />
-          Find a RANGER Outlet
-        </Link>
+            <MapPin size={16} aria-hidden="true" />
+            Find a RANGER Outlet
+          </Link>
+        </div>
       </nav>
     </header>
   );

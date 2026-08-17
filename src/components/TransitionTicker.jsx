@@ -2,15 +2,29 @@ import React from 'react';
 import './TransitionTicker.css';
 
 export default function TransitionTicker() {
-  const content = "60 kW DC FAST CHARGING • CCS2 • 24×7 ACCESS • HIGHWAY NETWORK • RELIABLE POWER • BUILT FOR THE JOURNEY • ";
-  // Repeat content to ensure it loops smoothly
-  const repeatedContent = content.repeat(4);
+  const phrases = [
+    "60 kW DC FAST CHARGING",
+    "CCS2",
+    "24×7 ACCESS",
+    "HIGHWAY NETWORK",
+    "RELIABLE POWER",
+    "BUILT FOR THE JOURNEY"
+  ];
+
+  const tickerBlock = phrases.map((phrase, idx) => (
+    <React.Fragment key={idx}>
+      <span className="ticker-phrase">{phrase}</span>
+      <span className="ticker-bullet">•</span>
+    </React.Fragment>
+  ));
 
   return (
     <div className="transition-ticker" aria-hidden="true">
       <div className="transition-ticker__inner">
-        <span className="transition-ticker__text">{repeatedContent}</span>
-        <span className="transition-ticker__text">{repeatedContent}</span>
+        <div className="ticker-segment">{tickerBlock}</div>
+        <div className="ticker-segment">{tickerBlock}</div>
+        <div className="ticker-segment">{tickerBlock}</div>
+        <div className="ticker-segment">{tickerBlock}</div>
       </div>
     </div>
   );
