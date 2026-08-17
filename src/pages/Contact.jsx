@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { Phone, MessageCircle, Mail, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
 import { companyInfo } from '../data/company';
-import { outletsData } from '../data/outlets';
 import SEO from '../components/SEO';
 import { BASE_URL } from '../config';
 import { submitContactForm } from '../services/formService';
 
 export default function Contact() {
-  const { primaryPhone, displayPhone, whatsappNumber, displayWhatsapp, email } = companyInfo.contact;
   const [formStatus, setFormStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
   const [errorMessage, setErrorMessage] = useState('');
+
+  const { displayPhone, primaryPhone, email, whatsappNumber } = companyInfo.contact;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormStatus('submitting');
     setErrorMessage('');
-    
+
     try {
       const formData = new FormData(e.target);
       await submitContactForm(formData);
@@ -27,8 +27,8 @@ export default function Contact() {
   };
 
   return (
-    <main style={{ background: 'var(--clr-offwhite)', minHeight: '100vh', paddingBottom: '4rem' }}>
-      <SEO 
+    <main className="on-light" style={{ background: 'var(--surface-light)', minHeight: '100vh', paddingBottom: '4rem' }}>
+      <SEO
         title="Contact RANGER EV Support"
         description="Get in touch with RANGER EV for corporate inquiries, partnership opportunities, or 24x7 charging support across our network."
         canonicalUrl={`${BASE_URL}/contact`}
@@ -39,7 +39,7 @@ export default function Contact() {
         <div className="container text-center" style={{ maxWidth: '700px' }}>
           <span className="t-eyebrow t-eyebrow--orange">Support & Inquiries</span>
           <h1 style={{ marginBottom: '1.25rem' }}>RANGER EV Corporate Support</h1>
-          <p className="t-lead">
+          <p className="t-lead" style={{ margin: '0 auto' }}>
             Whether you require immediate operational assistance at a charging hub or wish to discuss strategic partnerships, the RANGER infrastructure team is available.
           </p>
         </div>
@@ -53,21 +53,21 @@ export default function Contact() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <h2 className="h3">Direct Channels</h2>
             <div className="green-rule"></div>
-            <p style={{ color: 'var(--txt-muted)', marginBottom: '1rem' }}>
+            <p style={{ color: 'var(--text-secondary-light)', marginBottom: '1rem' }}>
               Select the appropriate channel for expedited service.
             </p>
 
             <div className="contact-channels">
-              <a href={`tel:${primaryPhone}`} className="contact-channel">
+              <a href={`tel:${primaryPhone}`} className="contact-channel" style={{ background: '#ffffff', borderColor: 'rgba(17,18,20,0.08)' }}>
                 <div className="contact-channel__icon ch-green"><Phone size={22} aria-hidden="true" /></div>
                 <div>
                   <div className="contact-channel__label">Emergency Assistance</div>
-                  <div className="contact-channel__value">24×7 Network Support</div>
+                  <div className="contact-channel__value">24x7 Network Support</div>
                   <div className="contact-channel__sub">{displayPhone}</div>
                 </div>
               </a>
 
-              <a href={`https://wa.me/${whatsappNumber.replace('+', '')}`} target="_blank" rel="noopener noreferrer" className="contact-channel">
+              <a href={`https://wa.me/${whatsappNumber.replace('+', '')}`} target="_blank" rel="noopener noreferrer" className="contact-channel" style={{ background: '#ffffff', borderColor: 'rgba(17,18,20,0.08)' }}>
                 <div className="contact-channel__icon ch-whatsapp"><MessageCircle size={22} aria-hidden="true" /></div>
                 <div>
                   <div className="contact-channel__label">Customer Support</div>
@@ -76,7 +76,7 @@ export default function Contact() {
                 </div>
               </a>
 
-              <a href={`mailto:${email}`} className="contact-channel">
+              <a href={`mailto:${email}`} className="contact-channel" style={{ background: '#ffffff', borderColor: 'rgba(17,18,20,0.08)' }}>
                 <div className="contact-channel__icon ch-email"><Mail size={22} aria-hidden="true" /></div>
                 <div>
                   <div className="contact-channel__label">Business Partnerships</div>
@@ -85,7 +85,7 @@ export default function Contact() {
                 </div>
               </a>
 
-              <a href={`mailto:${email}?subject=Site%20Acquisition`} className="contact-channel">
+              <a href={`mailto:${email}?subject=Site%20Acquisition`} className="contact-channel" style={{ background: '#ffffff', borderColor: 'rgba(17,18,20,0.08)' }}>
                 <div className="contact-channel__icon ch-location"><MapPin size={22} aria-hidden="true" /></div>
                 <div>
                   <div className="contact-channel__label">Site Acquisition</div>
@@ -97,29 +97,29 @@ export default function Contact() {
           </div>
 
           {/* General Inquiry Form */}
-          <div style={{ background: 'var(--clr-white)', padding: '2.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)', border: '1px solid var(--border-light)' }}>
-            <h2 className="h3" style={{ marginBottom: '0.5rem' }}>Send a Message</h2>
-            <p style={{ color: 'var(--txt-muted)', marginBottom: '2rem', fontSize: '0.95rem' }}>
+          <div style={{ background: '#ffffff', padding: '2.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)', border: '1px solid rgba(17,18,20,0.08)' }}>
+            <h2 className="h3" style={{ marginBottom: '0.5rem', color: '#111214' }}>Send a Message</h2>
+            <p style={{ color: '#4F565D', marginBottom: '2rem', fontSize: '0.95rem' }}>
               Have a question about our network or services? Send us a message and we'll get back to you.
             </p>
 
             {/* Form Container */}
             {formStatus === 'success' ? (
               <div className="text-center" style={{ padding: '2rem 1rem' }}>
-                <div style={{ color: 'var(--clr-ranger-green)', display: 'inline-flex', marginBottom: '1.5rem' }}>
+                <div style={{ color: 'var(--ranger-green)', display: 'inline-flex', marginBottom: '1.5rem' }}>
                   <CheckCircle2 size={48} aria-hidden="true" />
                 </div>
-                <h3 style={{ marginBottom: '1rem' }}>Message Sent</h3>
-                <p style={{ color: 'var(--txt-muted)' }}>
+                <h3 style={{ marginBottom: '1rem', color: '#111214' }}>Message Sent</h3>
+                <p style={{ color: '#4F565D' }}>
                   Thank you for reaching out to RANGER EV. Our team will review your message and get back to you shortly.
                 </p>
-                <button onClick={() => setFormStatus('idle')} className="btn btn--outline" style={{ marginTop: '2rem' }}>
+                <button onClick={() => setFormStatus('idle')} className="btn btn--outline" style={{ marginTop: '2rem', color: '#111214', borderColor: '#111214' }}>
                   Send Another Message
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                
+
                 {formStatus === 'error' && (
                   <div style={{ padding: '1rem', background: '#FEF2F2', border: '1px solid #F87171', borderRadius: 'var(--radius-sm)', color: '#991B1B', display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
                     <AlertCircle size={20} style={{ flexShrink: 0, marginTop: '0.125rem' }} aria-hidden="true" />
@@ -156,9 +156,9 @@ export default function Contact() {
                   <textarea id="msg" name="message" className="form-textarea" required></textarea>
                 </div>
 
-                <button 
-                  type="submit" 
-                  className="btn btn--primary" 
+                <button
+                  type="submit"
+                  className="btn btn--primary"
                   style={{ marginTop: '1rem', justifyContent: 'center' }}
                   disabled={formStatus === 'submitting'}
                   aria-disabled={formStatus === 'submitting'}

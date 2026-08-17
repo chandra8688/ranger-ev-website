@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Target, Map, Zap, ArrowRight } from 'lucide-react';
 import RouteGraphic from '../components/illustrations/RouteGraphic';
+import TransitionTicker from '../components/TransitionTicker';
 import SEO from '../components/SEO';
 import { BASE_URL } from '../config';
 
@@ -14,16 +15,18 @@ export default function About() {
         canonicalUrl={`${BASE_URL}/about`}
       />
       {/* Hero */}
-      <section className="section section--lg" style={{ background: 'var(--clr-offwhite)' }}>
+      <section className="section section--lg on-light" style={{ background: 'var(--surface-light)' }}>
         <div className="container text-center" style={{ maxWidth: '800px' }}>
           <span className="t-eyebrow t-eyebrow--orange">About RANGER</span>
           <h1 style={{ marginBottom: '1.5rem' }}>Building the Highway Charging Network</h1>
-          <p className="t-lead">
+          <p className="t-lead" style={{ margin: '0 auto' }}>
             RANGER EV is dedicated to solving the biggest challenge in electric mobility:
             reliable, fast charging for long-distance travel on India's highways.
           </p>
         </div>
       </section>
+
+      <TransitionTicker />
 
       {/* Our Beginning */}
       <section className="section">
@@ -37,7 +40,7 @@ export default function About() {
                 <strong> Outlet #01 on August 2, 2026</strong>.
               </p>
               <p style={{ marginBottom: '1rem' }}>
-                Located at Ayyasagar on the Srisailam Highway (NH 765), this inaugural 24×7 hub
+                Located at Ayyasagar on the Srisailam Highway (NH 765), this inaugural 24x7 hub
                 serves as the blueprint for our future. We focused on getting the fundamentals right:
                 60 kW DC fast charging, CCS2 compatibility, and co-location with essential driver amenities.
               </p>
@@ -46,8 +49,8 @@ export default function About() {
               </p>
             </div>
 
-            <div style={{ background: 'var(--bg-dark-surface)', padding: '3rem 2rem', borderRadius: 'var(--radius-lg)' }} className="on-dark">
-              <h3 style={{ marginBottom: '1.5rem' }}>Outlet #01 Facts</h3>
+            <div style={{ background: 'var(--surface-elevated)', padding: '3rem 2rem', borderRadius: 'var(--radius-lg)' }}>
+              <h3 style={{ marginBottom: '1.5rem', color: 'var(--text-primary-dark)' }}>Outlet #01 Facts</h3>
 
               <div className="info-strip info-strip--dark">
                 <div className="info-row info-row--dark">
@@ -64,7 +67,7 @@ export default function About() {
                 </div>
                 <div className="info-row info-row--dark" style={{ borderBottom: 'none' }}>
                   <span className="info-label info-label--dark">Availability</span>
-                  <span className="info-value info-value--green">24×7</span>
+                  <span className="info-value info-value--green">24x7</span>
                 </div>
               </div>
             </div>
@@ -73,7 +76,7 @@ export default function About() {
       </section>
 
       {/* Why RANGER */}
-      <section className="section" style={{ background: 'var(--clr-pale-green)', borderTop: '1px solid var(--border-light)', borderBottom: '1px solid var(--border-light)' }}>
+      <section className="section" style={{ background: 'var(--surface-elevated)' }}>
         <div className="container">
           <div className="text-center" style={{ marginBottom: '3.5rem' }}>
             <h2 style={{ marginBottom: '1rem' }}>The RANGER Difference</h2>

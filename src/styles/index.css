@@ -6,29 +6,42 @@
 /* --- Design Tokens --- */
 
 :root {
-  /* 1.1 Colors: Premium Dark Theme */
-  --clr-primary: #3D7A3D; /* Restrained RANGER green */
+  /* 1.1 Colors: Premium Editorial Theme */
+  --text-primary-dark: #F5F5F2;
+  --text-secondary-dark: #AEB5BC;
+
+  --text-primary-light: #111214;
+  --text-secondary-light: #59616A;
+
+  --surface-dark: #111214;
+  --surface-elevated: #171A1D;
+  --surface-light: #F5F3EF;
+
+  --ranger-green: #3D8B43;
+
+  /* Legacy tokens */
+  --clr-primary: var(--ranger-green);
   --clr-primary-dark: #2F5C2F;
-  --clr-primary-pale: rgba(61, 122, 61, 0.15);
-  --clr-accent: #3D7A3D; /* Use green instead of orange */
+  --clr-primary-pale: rgba(61, 139, 67, 0.15);
+  --clr-accent: var(--ranger-green);
 
   --clr-white: #ffffff;
   --clr-black: #000000;
-  
-  --bg-main: #111214; /* Deep charcoal */
-  --bg-surface: #15171A; /* Elevated charcoal */
-  --bg-dark-surface: #0D1117; /* Midnight navy */
-  --bg-light: #F5F3EF; /* Warm light */
-  
-  --txt-main: rgba(255, 255, 255, 0.9);
-  --txt-muted: rgba(255, 255, 255, 0.6);
-  --txt-inverse: #ffffff;
-  --txt-inverse-muted: rgba(255, 255, 255, 0.7);
-  --txt-dark: #111214;
-  --txt-medium: rgba(255,255,255,0.8);
+
+  --bg-main: var(--surface-dark);
+  --bg-surface: var(--surface-elevated);
+  --bg-dark-surface: #0D1117;
+  --bg-light: var(--surface-light);
+
+  --txt-main: var(--text-primary-dark);
+  --txt-muted: var(--text-secondary-dark);
+  --txt-inverse: var(--text-primary-light);
+  --txt-inverse-muted: var(--text-secondary-light);
+  --txt-dark: var(--text-primary-light);
+  --txt-medium: rgba(245, 245, 242, 0.8);
 
   --border-light: rgba(255, 255, 255, 0.08);
-  --border-primary: var(--clr-primary);
+  --border-primary: var(--ranger-green);
   --border-dark: rgba(255, 255, 255, 0.15);
 
   /* 1.2 Typography */
@@ -139,7 +152,7 @@ h1, .h1 {
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  color: var(--txt-inverse);
+  color: inherit;
   text-wrap: balance;
 }
 h2, .h2 {
@@ -147,7 +160,7 @@ h2, .h2 {
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.025em;
-  color: var(--txt-inverse);
+  color: inherit;
   text-wrap: balance;
 }
 h3, .h3 {
@@ -155,18 +168,17 @@ h3, .h3 {
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.015em;
-  color: var(--txt-inverse);
+  color: inherit;
   text-wrap: balance;
 }
 h4, .h4 {
   font-size: var(--text-h4);
   font-weight: 600;
   line-height: 1.4;
-  color: var(--txt-inverse);
+  color: inherit;
 }
 
 p {
-  color: var(--txt-muted);
   line-height: 1.7;
   font-size: var(--text-base);
   margin-bottom: 1rem;
@@ -175,7 +187,6 @@ p {
 .t-lead {
   font-size: var(--text-lead);
   line-height: 1.7;
-  color: var(--txt-muted);
   font-weight: 400;
   max-width: 65ch;
 }
@@ -185,7 +196,7 @@ p {
   font-weight: 800;
   line-height: 0.92;
   letter-spacing: -0.04em;
-  color: var(--txt-inverse);
+  color: inherit;
 }
 
 .t-stat-value {
@@ -193,13 +204,21 @@ p {
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.04em;
-  color: var(--txt-inverse);
+  color: inherit;
 }
 
-/* On dark backgrounds - Redundant now since everything is dark, but kept for compatibility */
-.on-dark h1, .on-dark h2, .on-dark h3, .on-dark h4 { color: var(--txt-inverse); }
-.on-dark p, .on-dark .t-lead { color: var(--txt-muted); }
+/* Contextual Surface Overrides */
+.on-dark {
+  color: var(--text-primary-dark);
+}
+.on-dark p, .on-dark .t-lead { color: var(--text-secondary-dark); }
 .on-dark .t-eyebrow { color: var(--clr-primary); }
+
+.on-light {
+  color: var(--text-primary-light);
+}
+.on-light p, .on-light .t-lead { color: var(--text-secondary-light); }
+.on-light .t-eyebrow { color: var(--clr-primary); }
 
 /* --- Green Rule Divider --- */
 .green-rule {
@@ -569,7 +588,7 @@ p {
   color: var(--txt-dark);
   text-align: right;
 }
-.info-value--dark  { color: var(--bg-main); }
+.info-value--dark  { color: var(--text-primary-dark); }
 .info-value--green { color: var(--clr-primary); }
 .info-value--lg {
   font-size: 1.1rem;
@@ -718,19 +737,19 @@ p {
 .form-field   { display: flex; flex-direction: column; gap: 0.4rem; }
 .form-label   {
   font-size: 0.8rem; font-weight: 600;
-  color: var(--txt-medium); letter-spacing: 0.02em;
+  color: #30343A; letter-spacing: 0.02em;
 }
 .form-input,
 .form-select,
 .form-textarea {
   width: 100%;
   padding: 0.8rem 1rem;
-  border: 1px solid rgba(16, 24, 32, 0.15);
+  border: 1px solid rgba(17,18,20,0.15);
   border-radius: var(--radius-xs);
   font-family: var(--font);
   font-size: 0.95rem;
-  color: var(--txt-dark);
-  background: var(--bg-main);
+  color: #F5F5F2;
+  background: #111214;
   min-height: 48px;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   outline: none;
@@ -740,15 +759,15 @@ p {
 .form-input:hover,
 .form-select:hover,
 .form-textarea:hover {
-  border-color: rgba(16, 24, 32, 0.35);
+  border-color: rgba(17,18,20,0.35);
 }
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
-  border-color: var(--clr-primary);
-  box-shadow: 0 0 0 3px var(--clr-primary-pale);
+  border-color: var(--ranger-green);
+  box-shadow: 0 0 0 3px rgba(61,139,67,0.15);
 }
-.form-input::placeholder, .form-textarea::placeholder { color: rgba(16, 24, 32, 0.55); }
+.form-input::placeholder, .form-textarea::placeholder { color: #777F87; }
 .form-textarea { resize: vertical; min-height: 120px; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
 .form-grid .span-2 { grid-column: span 2; }
@@ -831,7 +850,7 @@ p {
   grid-template-columns: 1fr 1.15fr;
   gap: 2rem;
 }
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
   .grid-2 { grid-template-columns: 1fr; }
   .hero-grid { grid-template-columns: 1fr; }
 }

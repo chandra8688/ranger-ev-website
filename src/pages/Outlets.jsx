@@ -2,93 +2,81 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, ArrowRight, Zap, Coffee } from 'lucide-react';
 import { outletsData } from '../data/outlets';
+import RouteGraphic from '../components/illustrations/RouteGraphic';
 import SEO from '../components/SEO';
 import { BASE_URL } from '../config';
 
 export default function Outlets() {
   return (
-    <main style={{ background: 'var(--clr-offwhite)', minHeight: '100vh', paddingBottom: '4rem' }}>
-      <SEO 
+    <main className="on-light" style={{ background: 'var(--surface-light)', minHeight: '100vh', paddingBottom: '6rem' }}>
+      <SEO
         title="Charging Stations | RANGER EV"
         description="Locate RANGER EV charging stations. Fast, reliable 60 kW DC charging with premium amenities across India's highways."
         canonicalUrl={`${BASE_URL}/outlets`}
       />
 
-      {/* Header */}
-      <section className="section" style={{ paddingBottom: '3rem' }}>
+      <section className="section">
         <div className="container">
-          <span className="t-eyebrow t-eyebrow--orange">Charging Network</span>
-          <h1 style={{ marginBottom: '1rem' }}>RANGER Outlets</h1>
-          <p className="t-lead" style={{ maxWidth: '600px' }}>
-            Find reliable 60 kW DC fast charging on your route.
-            Our network is expanding across India's major highways.
-          </p>
-        </div>
-      </section>
+          <div className="editorial-grid">
 
-      {/* Directory Grid */}
-      <section className="container">
-        <div className="grid-2">
+            {/* Left Column: Typography & Description */}
+            <div className="editorial-grid__left">
+              <span className="t-eyebrow t-eyebrow--orange">Charging Network</span>
+              <h1 style={{ marginBottom: '1.5rem' }}>RANGER Outlets</h1>
+              <div className="green-rule" style={{ marginBottom: '2rem' }}></div>
+              <p className="t-lead">
+                Find reliable 60 kW DC fast charging on your route.
+                Our network is expanding across India's major highways, ensuring you never have to compromise on speed or amenities.
+              </p>
 
-          {outletsData.map((outlet) => (
-            <div key={outlet.id} style={{ background: 'var(--clr-white)', borderRadius: 'var(--radius-lg)', padding: '2rem', border: '1px solid var(--border-light)', boxShadow: 'var(--shadow-sm)' }}>
+              <div style={{ marginTop: '4rem' }}>
+                <h3 className="h4" style={{ marginBottom: '1.5rem', color: 'var(--text-secondary-light)' }}>Operational Hubs</h3>
+                {outletsData.map((outlet) => (
+                  <Link to={`/outlets/${outlet.id}`} key={outlet.id} style={{ display: 'block', background: 'var(--clr-white)', borderRadius: 'var(--radius-lg)', padding: '2rem', border: '1px solid var(--border-light)', boxShadow: 'var(--shadow-sm)', transition: 'transform 0.3s ease, box-shadow 0.3s ease', textDecoration: 'none', color: 'inherit' }} className="outlet-card-hover">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+                      <div>
+                        <span className="status-badge status-badge--op" style={{ marginBottom: '0.75rem' }}>
+                          <span className="status-dot"></span>
+                          Operational
+                        </span>
+                        <h2 className="h3" style={{ color: 'var(--bg-main)' }}>{outlet.title}</h2>
+                        <p style={{ color: 'var(--text-secondary-light)', fontSize: '0.9rem', marginTop: '0.25rem', marginBottom: 0 }}>
+                          {outlet.highway} - {outlet.locationArea.split(',')[0]}
+                        </p>
+                      </div>
+                      <div style={{ background: 'rgba(61,139,67,0.1)', color: 'var(--ranger-green)', padding: '0.75rem', borderRadius: '50%' }}>
+                        <MapPin size={24} />
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderTop: '1px solid rgba(17,18,20,0.1)', paddingTop: '1rem' }}>
+                      <span className="text-green fw-800">View Details</span>
+                      <ArrowRight size={16} className="text-green" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-                <div>
-                  <span className="status-badge status-badge--op" style={{ marginBottom: '0.75rem' }}>
-                    <span className="status-dot"></span>
-                    Operational
-                  </span>
-                  <h2 className="h3">{outlet.title}</h2>
-                  <p style={{ color: 'var(--txt-muted)', fontSize: '0.9rem', marginTop: '0.25rem' }}>
-                    {outlet.highway} — {outlet.locationArea.split(',')[0]}
-                  </p>
-                </div>
-                <div style={{ background: 'var(--clr-green-pale)', color: 'var(--clr-ranger-green)', padding: '0.75rem', borderRadius: '50%' }}>
-                  <MapPin size={24} />
-                </div>
+            {/* Right Column: Visual Anchor & Future Locations */}
+            <div className="editorial-grid__right" style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
+              <div style={{ padding: '2rem', background: 'var(--surface-dark)', borderRadius: 'var(--radius-lg)' }}>
+                <RouteGraphic style={{ width: '100%', height: 'auto' }} />
               </div>
 
-              <div className="green-rule" style={{ marginBottom: '1.5rem' }}></div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '2rem' }}>
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--txt-medium)', fontWeight: '600', marginBottom: '0.2rem', fontSize: '0.85rem' }}>
-                    <Zap size={16} className="text-green" /> Charging
-                  </div>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--txt-muted)' }}>{outlet.specs.totalChargingPoints} Points ({outlet.specs.powerPerCharger} DC)</p>
+              <div style={{ padding: '2.5rem', border: '1px dashed var(--border-dark-surface)', borderRadius: 'var(--radius-lg)', textAlign: 'center' }}>
+                <div style={{ color: 'var(--text-secondary-light)', marginBottom: '1rem' }}>
+                  <MapPin size={32} style={{ margin: '0 auto' }} opacity={0.5} />
                 </div>
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--txt-medium)', fontWeight: '600', marginBottom: '0.2rem', fontSize: '0.85rem' }}>
-                    <Coffee size={16} className="text-green" /> Amenities
-                  </div>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--txt-muted)' }}>Food, Restrooms, Parking</p>
-                </div>
+                <h3 className="h4" style={{ color: 'var(--bg-main)', marginBottom: '0.5rem' }}>More Locations Coming Soon</h3>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary-light)', margin: 0 }}>
+                  We are actively acquiring sites along key corridors to expand the RANGER network.
+                </p>
               </div>
-
-              <Link to={`/outlets/${outlet.id}`} className="btn btn--outline" style={{ width: '100%', justifyContent: 'center' }}>
-                View Details & Directions
-              </Link>
             </div>
-          ))}
 
-          {/* Future Expansion Card */}
-          <div style={{ background: 'transparent', borderRadius: 'var(--radius-lg)', padding: '2rem', border: '1.5px dashed var(--clr-gray-300)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '320px' }}>
-            <div style={{ background: 'var(--clr-gray-100)', color: 'var(--clr-gray-500)', padding: '1rem', borderRadius: '50%', marginBottom: '1rem' }}>
-              <MapPin size={24} />
-            </div>
-            <h3 className="h4" style={{ color: 'var(--txt-medium)', marginBottom: '0.5rem' }}>More Locations Coming Soon</h3>
-            <p style={{ color: 'var(--txt-muted)', fontSize: '0.9rem', maxWidth: '280px', margin: '0 auto 1.5rem' }}>
-              We are actively developing new fast-charging hubs across national highways.
-            </p>
-            <Link to="/partner" className="btn-text" style={{ color: 'var(--txt-medium)' }}>
-              Partner With Us <ArrowRight size={16} aria-hidden="true" />
-            </Link>
           </div>
-
         </div>
       </section>
-
     </main>
   );
 }

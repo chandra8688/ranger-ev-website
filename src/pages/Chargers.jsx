@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Zap, SplitSquareHorizontal } from 'lucide-react';
 import RangerChargerIllustration from '../components/illustrations/RangerChargerIllustration';
+import TransitionTicker from '../components/TransitionTicker';
 import SEO from '../components/SEO';
 import { BASE_URL } from '../config';
 
@@ -13,7 +14,7 @@ export default function Chargers() {
         description="Discover the robust 60 kW DC fast chargers powering the RANGER EV highway network. Reliable, dual-gun CCS2 technology built for the long drive."
         canonicalUrl={`${BASE_URL}/chargers`}
       />
-      <section className="section section--lg" style={{ background: 'var(--clr-offwhite)' }}>
+      <section className="section section--lg on-light" style={{ background: 'var(--surface-light)' }}>
         <div className="container">
           <div className="grid-2" style={{ alignItems: 'center' }}>
 
@@ -31,7 +32,7 @@ export default function Chargers() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-                  <div style={{ background: 'var(--clr-green-pale)', color: 'var(--clr-ranger-green)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
+                  <div style={{ background: 'rgba(61,139,67,0.15)', color: 'var(--ranger-green)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
                     <Zap size={24} />
                   </div>
                   <div>
@@ -41,7 +42,7 @@ export default function Chargers() {
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-                  <div style={{ background: 'var(--clr-green-pale)', color: 'var(--clr-ranger-green)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
+                  <div style={{ background: 'rgba(61,139,67,0.15)', color: 'var(--ranger-green)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
                     <SplitSquareHorizontal size={24} />
                   </div>
                   <div>
@@ -64,10 +65,12 @@ export default function Chargers() {
         </div>
       </section>
 
-      <section className="section section--lg on-dark text-center" style={{ background: 'var(--bg-dark-surface)' }}>
+      <TransitionTicker />
+
+      <section className="section section--lg on-dark text-center" style={{ background: 'var(--surface-dark)' }}>
         <div className="container" style={{ maxWidth: '800px' }}>
-          <h2 style={{ marginBottom: '1.5rem', color: 'var(--clr-white)' }}>Experience it on the road</h2>
-          <p className="t-lead" style={{ marginBottom: '2.5rem', color: 'rgba(255,255,255,0.7)' }}>
+          <h2 style={{ marginBottom: '1.5rem' }}>Experience it on the road</h2>
+          <p className="t-lead" style={{ margin: '0 auto 2.5rem' }}>
             Our 60 kW chargers are currently deployed and operational at RANGER Outlet #01.
           </p>
           <Link to="/outlets" className="btn btn--primary">

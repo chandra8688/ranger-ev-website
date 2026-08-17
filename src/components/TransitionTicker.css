@@ -1,0 +1,40 @@
+.transition-ticker {
+  background: var(--surface-elevated);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  padding: 1rem 0;
+  overflow: hidden;
+  display: flex;
+  white-space: nowrap;
+}
+
+.transition-ticker__inner {
+  display: flex;
+  width: max-content;
+  animation: ticker 40s linear infinite;
+}
+
+.transition-ticker__text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--txt-muted);
+  text-transform: uppercase;
+  padding-right: 2rem;
+  display: inline-block;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transition-ticker__inner {
+    animation-play-state: paused;
+  }
+}
