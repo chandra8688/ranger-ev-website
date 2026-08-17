@@ -10,8 +10,8 @@ export default function Outlets() {
   return (
     <main className="on-light" style={{ background: 'var(--surface-light)', minHeight: '100vh', paddingBottom: '6rem' }}>
       <SEO
-        title="Charging Stations | RANGER EV"
-        description="Locate RANGER EV charging stations. Fast, reliable 60 kW DC charging with premium amenities across India's highways."
+        title="RANGER EV | Highway EV Charging Stations"
+        description="Find RANGER EV fast-charging stations along India's highways. Check locations, real-time status, and premium amenities."
         canonicalUrl={`${BASE_URL}/outlets`}
       />
 

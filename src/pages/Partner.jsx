@@ -27,7 +27,7 @@ export default function Partner() {
   return (
     <main className="on-light" style={{ background: 'var(--surface-light)', minHeight: '100vh', paddingBottom: '4rem' }}>
       <SEO
-        title="Partner With RANGER EV | Host a Charging Station"
+        title="RANGER EV | Partner With Us"
         description="Join the RANGER EV network. Monetize your highway commercial property by hosting a 60 kW CCS2 DC fast charging station."
         canonicalUrl={`${BASE_URL}/partner`}
       />

@@ -29,7 +29,7 @@ export default function Contact() {
   return (
     <main className="on-light" style={{ background: 'var(--surface-light)', minHeight: '100vh', paddingBottom: '4rem' }}>
       <SEO
-        title="Contact RANGER EV Support"
+        title="RANGER EV | Contact & Support"
         description="Get in touch with RANGER EV for corporate inquiries, partnership opportunities, or 24x7 charging support across our network."
         canonicalUrl={`${BASE_URL}/contact`}
       />

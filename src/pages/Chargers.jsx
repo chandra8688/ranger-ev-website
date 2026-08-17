@@ -10,7 +10,7 @@ export default function Chargers() {
   return (
     <main>
       <SEO 
-        title="60 kW CCS2 DC Fast Charger | RANGER EV"
+        title="RANGER EV | 60 kW DC Fast Chargers"
         description="Discover the robust 60 kW DC fast chargers powering the RANGER EV highway network. Reliable, dual-gun CCS2 technology built for the long drive."
         canonicalUrl={`${BASE_URL}/chargers`}
       />

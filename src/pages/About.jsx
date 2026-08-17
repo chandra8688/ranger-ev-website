@@ -10,7 +10,7 @@ export default function About() {
   return (
     <main>
       <SEO 
-        title="About RANGER EV | Highway EV Charging Infrastructure"
+        title="RANGER EV | About Our EV Charging Infrastructure"
         description="Learn how RANGER EV is building a robust, reliable 60 kW CCS2 highway charging network to eliminate range anxiety across India."
         canonicalUrl={`${BASE_URL}/about`}
       />

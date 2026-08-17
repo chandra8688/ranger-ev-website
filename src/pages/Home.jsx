@@ -10,31 +10,30 @@ export default function Home() {
   return (
     <main>
       <SEO 
-        title="RANGER EV | 60 kW DC Fast Charging on NH765"
-        description="Building a reliable EV fast-charging network for India's highways. Experience seamless 60 kW DC charging designed for the long drive on NH765, Telangana."
+        title="RANGER EV | EV Fast Charging Network in India"
+        description="Building a reliable EV fast-charging network for India's highways. Experience seamless 60 kW DC charging designed for the long drive."
         canonicalUrl={`${BASE_URL}/`}
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "ElectricVehicleChargingStation",
-          "name": "RANGER EV",
-          "url": BASE_URL,
-          "logo": `${BASE_URL}/logo.png`,
-          "telephone": companyInfo.contact.primaryPhone,
-          "email": "rangerevhub@gmail.com",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "NH765",
-            "addressLocality": "Ayyasagar",
-            "addressRegion": "Telangana",
-            "addressCountry": "IN"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "RANGER EV",
+            "url": BASE_URL
           },
-          "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-            "opens": "00:00",
-            "closes": "23:59"
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "RANGER EV",
+            "url": BASE_URL,
+            "logo": `${BASE_URL}/images/brand/ranger-logo-transparent.png`,
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": companyInfo.contact.primaryPhone,
+              "contactType": "customer service",
+              "email": "rangerevhub@gmail.com"
+            }
           }
-        }}
+        ]}
       />
       
       {/* ========================================================

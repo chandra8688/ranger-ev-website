@@ -44,7 +44,7 @@ export default function OutletDetail() {
   return (
     <main className="on-dark" style={{ background: 'var(--surface-dark)', minHeight: '100vh', paddingBottom: '3rem' }}>
       <SEO 
-        title={`${outlet.title} | ${outlet.location}`}
+        title={`RANGER EV | ${outlet.title}`}
         description={`Visit ${outlet.title} on ${outlet.highway}. 24x7 60 kW CCS2 DC fast charging for EVs in ${outlet.state}. Restrooms, dining, and premium amenities.`}
         canonicalUrl={`${BASE_URL}/outlets/${outlet.id}`}
         jsonLd={{

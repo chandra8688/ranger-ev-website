@@ -12,9 +12,9 @@ export default function NotFound() {
   return (
     <main style={{ background: 'var(--clr-offwhite)', minHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
       <SEO 
-        title="Page Not Found | RANGER EV"
+        title="RANGER EV | Page Not Found"
         description="The requested page could not be found."
-        canonicalUrl={`${BASE_URL}/`}
+        noindex={true}
       />
       
       <div className="container section text-center" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
