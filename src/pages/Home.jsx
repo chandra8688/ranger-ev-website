@@ -17,20 +17,58 @@ export default function Home() {
           {
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": "RANGER EV",
-            "url": BASE_URL
+            "@id": `${BASE_URL}/#website`,
+            "name": "RANGER EV HUB",
+            "alternateName": "RANGER EV",
+            "url": BASE_URL,
+            "publisher": {
+              "@id": `${BASE_URL}/#organization`
+            }
           },
           {
             "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "RANGER EV",
+            "@type": ["Organization", "LocalBusiness"],
+            "@id": `${BASE_URL}/#organization`,
+            "name": "RANGER EV HUB",
             "url": BASE_URL,
             "logo": `${BASE_URL}/images/brand/ranger-logo-transparent.png`,
+            "telephone": companyInfo.contact.primaryPhone,
+            "email": "rangerevhub@gmail.com",
             "contactPoint": {
               "@type": "ContactPoint",
               "telephone": companyInfo.contact.primaryPhone,
               "contactType": "customer service",
               "email": "rangerevhub@gmail.com"
+            },
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "NH 765 (Srisailam Highway)",
+              "addressLocality": "Ramnunthala, Amangal, Rangareddy",
+              "addressRegion": "Telangana",
+              "postalCode": "509321",
+              "addressCountry": "IN"
+            },
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "00:00",
+              "closes": "23:59"
+            },
+            "makesOffer": {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "EV Fast Charging Services",
+                "description": "60 kW DC CCS2 fast charging for Electric Vehicles"
+              }
             }
           }
         ]}
