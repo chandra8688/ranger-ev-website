@@ -56,8 +56,9 @@ export default function OutletDetail() {
           "address": {
             "@type": "PostalAddress",
             "streetAddress": outlet.highway,
-            "addressLocality": outlet.location,
-            "addressRegion": outlet.state,
+            "addressLocality": outlet.locationArea,
+            "addressRegion": "Telangana",
+            "postalCode": "509321",
             "addressCountry": "IN"
           },
           "openingHoursSpecification": {
