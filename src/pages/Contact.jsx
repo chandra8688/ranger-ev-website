@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, MessageCircle, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, CheckCircle2, AlertCircle } from 'lucide-react';
 import { companyInfo } from '../data/company';
 import SEO from '../components/SEO';
 import { BASE_URL } from '../config';
@@ -67,7 +67,7 @@ export default function Contact() {
                 </div>
               </a>
 
-              <a href={`https://wa.me/${whatsappNumber.replace('+', '')}`} target="_blank" rel="noopener noreferrer" className="contact-channel" style={{ background: '#ffffff', borderColor: 'rgba(17,18,20,0.08)' }}>
+              <a href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="contact-channel" style={{ background: '#ffffff', borderColor: 'rgba(17,18,20,0.08)' }}>
                 <div className="contact-channel__icon ch-whatsapp"><MessageCircle size={22} aria-hidden="true" /></div>
                 <div>
                   <div className="contact-channel__label">Customer Support</div>

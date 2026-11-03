@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { MapPin, Navigation, Clock, Zap, Coffee, Phone, ArrowLeft, AlertCircle, MessageSquare, SquareParking, UtensilsCrossed, Wifi, Toilet, Sofa, Cable, Car } from 'lucide-react';
+import { Navigation, Clock, Zap, Coffee, Phone, AlertCircle, MessageSquare, SquareParking, UtensilsCrossed, Wifi, Toilet, Sofa, Cable, Car } from 'lucide-react';
 import { outletsData } from '../data/outlets';
 import { companyInfo } from '../data/company';
 import SEO from '../components/SEO';
@@ -22,14 +22,18 @@ export default function OutletDetail() {
     }
   };
 
-  // Add padding to body for mobile sticky actions
+  // Add padding to body for mobile sticky actions only when valid outlet is displayed
   useEffect(() => {
-    document.body.classList.add('has-sticky-bar');
     window.scrollTo(0, 0);
+    if (outlet) {
+      document.body.classList.add('has-sticky-bar');
+    } else {
+      document.body.classList.remove('has-sticky-bar');
+    }
     return () => {
       document.body.classList.remove('has-sticky-bar');
     };
-  }, [id]);
+  }, [id, outlet]);
 
   if (!outlet) {
     return (
@@ -94,6 +98,8 @@ export default function OutletDetail() {
           src="/images/cinematic/vision_charging_hub_1786922492514.webp"
           alt="Atmospheric editorial visual representing the RANGER charging experience"
           fetchPriority="high"
+          width="896"
+          height="1200"
           style={{ width: '100%', height: '420px', objectFit: 'cover', opacity: 0.85 }}
         />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--surface-dark) 0%, transparent 40%)' }}></div>
@@ -165,7 +171,7 @@ export default function OutletDetail() {
             <div className="detail-card" style={{ background: 'var(--surface-elevated)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)', border: '1px solid var(--border-light)' }}>
               <h2 className="h3" style={{ marginBottom: '1.5rem', color: 'var(--text-primary-dark)' }}>Amenities</h2>
               <ul className="outlet-amenities-grid">
-                {outlet.amenities.map((item, idx) => (
+                {outlet.amenities.map((item, _idx) => (
                   <li key={item.id} className="amenity-item-hover" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-secondary-dark)' }}>
                     <div className="amenity-icon-wrapper" style={{ color: 'var(--ranger-green)', transition: 'color 0.2s ease' }}>{getAmenityIcon(item.id)}</div>
                     <span className="amenity-text" style={{ fontWeight: '500', transition: 'color 0.2s ease', color: 'var(--text-primary-dark)' }}>{item.name}</span>
@@ -214,7 +220,7 @@ export default function OutletDetail() {
             <Phone size={16} aria-hidden="true" />
             Call Support
           </a>
-          <a href={`https://wa.me/${companyInfo.contact.whatsappNumber.replace('+', '')}`} target="_blank" rel="noopener noreferrer" className="btn btn--outline" style={{ background: 'var(--surface-dark)', borderColor: 'var(--border-dark)', color: '#25D366' }} aria-label="WhatsApp chat (opens in new tab)">
+          <a href={`https://wa.me/${companyInfo.contact.whatsappNumber.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="btn btn--outline" style={{ background: 'var(--surface-dark)', borderColor: 'var(--border-dark)', color: '#25D366' }} aria-label="WhatsApp chat (opens in new tab)">
             <MessageSquare size={16} aria-hidden="true" /> Chat
           </a>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Target, Map, Zap, ArrowRight } from 'lucide-react';
+import { Target, Map, Zap } from 'lucide-react';
 import RouteGraphic from '../components/illustrations/RouteGraphic';
 import TransitionTicker from '../components/TransitionTicker';
 import SEO from '../components/SEO';

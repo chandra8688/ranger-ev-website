@@ -1,16 +1,36 @@
+# Dependencies
 node_modules/
+
+# Production builds
 dist/
+
+# Local Environment & Secrets
 .env
 .env.*
+.env.local
+.env.*.local
 !.env.example
 
+# IDE & Editor files
 .vscode/
 .idea/
 
+# OS generated files
 .DS_Store
 Thumbs.db
 
+# Logs
 *.log
 
+# AI / IDE tooling
 .antigravity/
 .gemini/
+
+# Hosting CLI cache & local environments
+.vercel/
+.vercel
+.firebase/
+.firebase
+
+# Local archives & uncommitted assets
+/local-archive/

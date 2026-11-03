@@ -3,6 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Route-specific LCP image preload for Outlet Detail -->
+    <script>
+      (function() {
+        if (/^\/outlets\/[^/]+/.test(window.location.pathname)) {
+          var link = document.createElement('link');
+          link.rel = 'preload';
+          link.as = 'image';
+          link.href = '/images/cinematic/vision_charging_hub_1786922492514.webp';
+          link.type = 'image/webp';
+          link.fetchPriority = 'high';
+          link.setAttribute('fetchpriority', 'high');
+          document.head.appendChild(link);
+        }
+      })();
+    </script>
     <meta name="google-site-verification" content="B3Eio_nczWeawL3W9mdMFoKtc4EKVovTak1ioKttZsI" />
     <title>RANGER EV | EV Fast Charging on India's Highways</title>
     <meta name="description" content="RANGER EV is building highway-focused EV fast-charging infrastructure in India. Visit RANGER Outlet #01 at Ayyasagar on NH 765 for 60 kW DC CCS2 charging, open 24×7." />
@@ -40,7 +55,7 @@
     <!-- Manrope — Primary Brand Typeface -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>

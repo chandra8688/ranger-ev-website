@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { BASE_URL } from '../config';
 
 // Utility to create or update meta tags
@@ -14,6 +14,8 @@ const setMetaTag = (attrName, attrValue, content) => {
 };
 
 export default function SEO({ title, description, keywords, canonicalUrl, jsonLd, ogImage, ogType = 'website', noindex = false }) {
+  const jsonLdString = jsonLd ? JSON.stringify(jsonLd) : null;
+
   useEffect(() => {
     // 1. Title
     if (title) {
@@ -59,7 +61,7 @@ export default function SEO({ title, description, keywords, canonicalUrl, jsonLd
       }
       linkCanonical.setAttribute('href', canonicalUrl);
     } else if (noindex) {
-      let linkCanonical = document.querySelector('link[rel="canonical"]');
+      const linkCanonical = document.querySelector('link[rel="canonical"]');
       if (linkCanonical) {
         linkCanonical.remove();
       }
@@ -69,26 +71,30 @@ export default function SEO({ title, description, keywords, canonicalUrl, jsonLd
     if (noindex) {
       setMetaTag('name', 'robots', 'noindex, follow');
     } else {
-      let element = document.querySelector('meta[name="robots"]');
+      const element = document.querySelector('meta[name="robots"]');
       if (element) {
         element.remove();
       }
     }
 
+    // 8. Inject or Clean Up JSON-LD Structured Data
+    const scriptId = 'json-ld-structured-data';
+    let existingScript = document.getElementById(scriptId);
 
-    // 7. Inject JSON-LD
-    if (jsonLd) {
-      const scriptId = 'json-ld-structured-data';
-      let existingScript = document.getElementById(scriptId);
+    if (jsonLdString) {
       if (!existingScript) {
         existingScript = document.createElement('script');
         existingScript.id = scriptId;
         existingScript.type = 'application/ld+json';
         document.head.appendChild(existingScript);
       }
-      existingScript.textContent = JSON.stringify(jsonLd);
+      if (existingScript.textContent !== jsonLdString) {
+        existingScript.textContent = jsonLdString;
+      }
+    } else if (existingScript) {
+      existingScript.remove();
     }
-  }, [title, description, keywords, canonicalUrl, jsonLd, ogImage, ogType]);
+  }, [title, description, keywords, canonicalUrl, jsonLdString, ogImage, ogType, noindex]);
 
   return null;
 }

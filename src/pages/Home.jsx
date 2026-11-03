@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, MapPin, Zap, Clock, ShieldCheck, Coffee, Wifi, Car } from 'lucide-react';
+import { ArrowRight, MapPin, Zap, Clock } from 'lucide-react';
 import { companyInfo } from '../data/company';
 import SEO from '../components/SEO';
-import { BASE_URL } from '../config';
+import { BASE_URL, BUSINESS_EMAIL } from '../config';
 import TransitionTicker from '../components/TransitionTicker';
 
 export default function Home() {
@@ -33,12 +33,12 @@ export default function Home() {
             "url": BASE_URL,
             "logo": `${BASE_URL}/images/brand/ranger-logo-transparent.png`,
             "telephone": companyInfo.contact.primaryPhone,
-            "email": "rangerevhub@gmail.com",
+            "email": BUSINESS_EMAIL,
             "contactPoint": {
               "@type": "ContactPoint",
               "telephone": companyInfo.contact.primaryPhone,
               "contactType": "customer service",
-              "email": "rangerevhub@gmail.com"
+              "email": BUSINESS_EMAIL
             },
             "address": {
               "@type": "PostalAddress",
@@ -92,7 +92,7 @@ export default function Home() {
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <div style={{ maxWidth: '640px' }}>
             <span className="hero-eyebrow">RANGER EV</span>
-            <h1 style={{ marginBottom: '1.5rem', lineHeight: 1.05 }}>Powering<br />Every Journey</h1>
+            <h1 style={{ marginBottom: '1.5rem', lineHeight: 1.05 }}>Powering <br />Every Journey</h1>
             <p className="t-lead" style={{ marginBottom: '2.5rem', color: 'rgba(255,255,255,0.8)' }}>
               Building a reliable EV fast-charging network for India's highways.
               Experience seamless 60 kW DC charging designed for the long drive.
@@ -148,19 +148,19 @@ export default function Home() {
           <div className="grid-auto-3" style={{ gap: '4rem' }}>
             
             <div style={{ paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-              <Zap size={28} style={{ color: 'var(--ranger-green)', marginBottom: '1.5rem' }} />
+              <Zap size={28} aria-hidden="true" style={{ color: 'var(--ranger-green)', marginBottom: '1.5rem' }} />
               <h3 className="h4" style={{ marginBottom: '1rem' }}>Fast Charging</h3>
               <p style={{ fontSize: '1.125rem', lineHeight: 1.65 }}>Dual-gun 60 kW DC chargers utilizing the CCS2 standard, capable of charging two vehicles simultaneously to get you back on the road quickly.</p>
             </div>
 
             <div style={{ paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-              <Clock size={28} style={{ color: 'var(--ranger-green)', marginBottom: '1.5rem' }} />
+              <Clock size={28} aria-hidden="true" style={{ color: 'var(--ranger-green)', marginBottom: '1.5rem' }} />
               <h3 className="h4" style={{ marginBottom: '1rem' }}>24×7 Access</h3>
               <p style={{ fontSize: '1.125rem', lineHeight: 1.65 }}>The highway never sleeps, and neither do we. RANGER outlets are operational 24 hours a day, 7 days a week for uninterrupted travel.</p>
             </div>
 
             <div style={{ paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-              <MapPin size={28} style={{ color: 'var(--ranger-green)', marginBottom: '1.5rem' }} />
+              <MapPin size={28} aria-hidden="true" style={{ color: 'var(--ranger-green)', marginBottom: '1.5rem' }} />
               <h3 className="h4" style={{ marginBottom: '1rem' }}>Strategic Locations</h3>
               <p style={{ fontSize: '1.125rem', lineHeight: 1.65 }}>Situated on major national routes with easy on-and-off access, designed specifically to serve long-distance commuters and travelers.</p>
             </div>
@@ -354,7 +354,7 @@ export default function Home() {
             Find a RANGER charging outlet along your route and experience reliable, fast highway charging.
           </p>
           <Link to="/outlets" className="btn btn--primary" style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem' }}>
-            <MapPin size={20} />
+            <MapPin size={20} aria-hidden="true" />
             Find a Charger
           </Link>
         </div>

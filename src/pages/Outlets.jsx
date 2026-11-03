@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, ArrowRight, Zap, Coffee } from 'lucide-react';
+import { MapPin, ArrowRight } from 'lucide-react';
 import { outletsData } from '../data/outlets';
 import RouteGraphic from '../components/illustrations/RouteGraphic';
 import SEO from '../components/SEO';

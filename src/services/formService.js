@@ -35,7 +35,7 @@ const submitForm = async (endpoint, formData) => {
         if (errorData.errors && errorData.errors.length > 0) {
           errorMessage = errorData.errors.map(err => err.message).join(', ');
         }
-      } catch (e) {
+      } catch (_e) {
         // Fallback generic error message
       }
       throw new Error(errorMessage);

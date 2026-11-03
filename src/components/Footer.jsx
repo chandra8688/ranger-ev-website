@@ -5,7 +5,7 @@ import { companyInfo } from '../data/company';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const { displayPhone, primaryPhone, displayWhatsapp, whatsappNumber, email } = companyInfo.contact;
+  const { displayPhone, primaryPhone, email } = companyInfo.contact;
 
   return (
     <footer className="footer">

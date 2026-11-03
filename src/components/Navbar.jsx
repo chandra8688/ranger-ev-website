@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Menu, X, MapPin } from 'lucide-react';
-import { companyInfo } from '../data/company';
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);

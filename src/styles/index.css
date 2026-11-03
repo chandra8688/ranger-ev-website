@@ -45,7 +45,8 @@
   --border-dark: rgba(255, 255, 255, 0.15);
 
   /* 1.2 Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-primary: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-primary);
   --font: var(--font-sans);
 
   /* Premium Scaling */
@@ -451,6 +452,25 @@ p {
 .nav-link:hover::after { width: 100%; }
 .nav-link.active { color: #FFFFFF; }
 .nav-link.active::after { width: 100%; }
+
+.nav-link:focus-visible {
+  outline: 2px solid var(--clr-primary);
+  outline-offset: 4px;
+  border-radius: var(--radius-xs);
+  color: #FFFFFF;
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--clr-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+.navbar__brand:focus-visible {
+  outline: 2px solid var(--clr-primary);
+  outline-offset: 4px;
+  border-radius: var(--radius-xs);
+}
 
 .navbar__actions {
   display: flex;
@@ -915,6 +935,10 @@ p {
   -webkit-appearance: none;
   appearance: none;
 }
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
 .form-input:hover,
 .form-select:hover,
 .form-textarea:hover {
@@ -927,7 +951,6 @@ p {
   box-shadow: 0 0 0 3px rgba(61,139,67,0.15);
 }
 .form-input::placeholder, .form-textarea::placeholder { color: #777F87; }
-.form-textarea { resize: vertical; min-height: 120px; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
 .form-grid .span-2 { grid-column: span 2; }
 
@@ -1189,6 +1212,7 @@ p {
 
   /* Outlet detail amenities grid: 1 col on small screens */
   .amenity-grid-2 { grid-template-columns: 1fr !important; }
+}
 
 /* Base Detail Card and Outlet Amenities classes for desktop */
 .detail-card {
@@ -1225,11 +1249,6 @@ p {
 
   /* Ensure images don't overflow */
   img { max-width: 100%; height: auto; }
-}
-
-@media (max-width: 480px) {
-  /* Removed 1-col override to preserve 2-col on 390px screens */
-}
 
   /* Chargers page image container — ensure it doesn't overflow */
   .charger-image-wrap { min-height: 320px !important; }
