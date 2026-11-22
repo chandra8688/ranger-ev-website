@@ -7,9 +7,9 @@ import TransitionTicker from '../components/TransitionTicker';
 import Picture from '../components/Picture';
 import Reveal from '../components/Reveal';
 import { outletsData } from '../data/outlets';
+import { SCENES } from '../data/scenes';
 
 const outlet = outletsData[0];
-const photo = (name) => outlet.photos.find((p) => p.src.endsWith(name));
 
 const VALUES = [
   { icon: Zap, title: 'Dependable hardware', body: 'Industrial-grade 60 kW DC chargers with two CCS2 guns, backed by a 24×7 support line.' },
@@ -46,8 +46,8 @@ export default function About() {
                 We are expanding one carefully chosen highway site at a time, with the same hardware and the same standard at every stop.
               </p>
             </Reveal>
-            <Reveal className="photo ratio-4x3" delay="1">
-              <Picture photo={photo('site-overview')} sizes="(max-width: 860px) 100vw, 50vw" />
+            <Reveal className="photo ratio-4x5" delay="1">
+              <Picture photo={SCENES['highway-journey']} sizes="(max-width: 860px) 100vw, 50vw" />
             </Reveal>
           </div>
         </div>

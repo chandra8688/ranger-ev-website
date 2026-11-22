@@ -37,7 +37,6 @@ export default function OutletDetail() {
 
   const meta = outletRouteMeta(outlet);
   const faqs = outletFaqs(outlet);
-  const heroPhoto = outlet.photos.find((p) => p.src === outlet.images.hero);
   const { primaryPhone, displayPhone } = companyInfo.contact;
   const waLink = whatsappLink(`Hi RANGER EV, I have a question about ${outlet.title}.`);
   const track = (name, location) => () => trackEvent(name, { outlet_id: outlet.id, location });
@@ -62,7 +61,7 @@ export default function OutletDetail() {
 
       <header className="page-hero page-hero--image">
         <div className="page-hero__media">
-          <Picture photo={heroPhoto} sizes="100vw" eager alt="" />
+          <Picture photo={outlet.images.hero} sizes="(min-width: 1024px) 58vw, 100vw" eager alt="" imgClassName="page-hero__img" />
         </div>
         <div className="container">
           <Breadcrumb items={[['Home', '/'], ['Outlets', '/outlets'], [outlet.title]]} />
@@ -114,9 +113,9 @@ export default function OutletDetail() {
               </Reveal>
 
               <Reveal className="card">
-                <h2 className="h3">Photos</h2>
-                <p className="small" style={{ marginTop: '0.5rem', marginBottom: '1.25rem' }}>Real photos from the outlet. Select a photo to enlarge it.</p>
-                <Gallery photos={outlet.photos} label={`${outlet.title} photos`} />
+                <h2 className="h3">The RANGER experience</h2>
+                <p className="small" style={{ marginTop: '0.5rem', marginBottom: '1.25rem' }}>What to expect at a RANGER hub. Select an image to enlarge it. Imagery is illustrative.</p>
+                <Gallery photos={outlet.gallery} label="The RANGER experience" />
               </Reveal>
             </div>
 

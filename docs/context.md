@@ -992,7 +992,7 @@ Revert everything with `git switch main` (main is untouched) or `git reset --har
 | 5 | `/outlets/<unknown>` was an indexable soft 404 | Renders `NotFound` (noindex); Vercel now returns real HTTP 404 via `404.html` |
 | 6 | Forms had no honeypot despite the commit message | `_gotcha` honeypot + 1.5 s timing check, `role="alert"` / `role="status"` |
 | 7 | ₹23/kWh tariff never displayed | Price card, stats strip, specs, FAQ, estimator |
-| 8 | Outlet page used an AI render instead of the real station | Real outlet photos (AVIF/WebP, EXIF stripped) + gallery/lightbox |
+| 8 | Outlet page imagery was low quality / inconsistent | Owner chose cinematic brand imagery over site photos: 11 scenes regenerated from the high-res originals as AVIF/WebP (`npm run process-images`), gallery/lightbox labelled "illustrative" |
 
 ### Also fixed
 Nested `<main>`, hidden drawer links focusable, undefined CSS vars, footer "Corporate Office" blank map link,
@@ -1011,7 +1011,7 @@ generated sitemap · Vercel security headers (CSP report-only) and immutable ass
 
 ### Housekeeping
 36 unused images moved out of `public/` to `local-archive/public-unused-2026-11-22/` (gitignored; also recoverable from git history).
-Photo originals live in `assets-src/`; regenerate variants with `npm run process-photos`. `scripts/optimize.cjs` removed.
+Cinematic originals live in `assets-src/cinematic/`; regenerate variants with `npm run process-images`. No real site photos are used. `scripts/optimize.cjs` removed.
 Tests: 54 → 79 (navbar, forms, 404, estimator, route metadata, photo files).
 
 ### Needs the owner

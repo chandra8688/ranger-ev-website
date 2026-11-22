@@ -8,9 +8,9 @@ import Picture from '../components/Picture';
 import { outletsData, directionsUrl } from '../data/outlets';
 import { trackEvent } from '../lib/analytics';
 import { amenityIcon } from '../components/amenityIcons';
+import { SCENES } from '../data/scenes';
 
 const outlet = outletsData[0];
-const photo = (name) => outlet.photos.find((p) => p.src.endsWith(name));
 
 
 export default function Home() {
@@ -72,14 +72,7 @@ export default function Home() {
         <div className="container">
           <div className="grid-2 grid-center">
             <Reveal className="photo ratio-4x5">
-              <img
-                src="/images/cinematic/vision_charging_hub_1786922492514.webp"
-                width="896"
-                height="1200"
-                alt="Concept render of a RANGER highway charging hub at night"
-                loading="lazy"
-                decoding="async"
-              />
+              <Picture photo={SCENES['charging-hub']} sizes="(max-width: 860px) 100vw, 50vw" />
             </Reveal>
             <Reveal delay="1">
               <p className="eyebrow">Why RANGER</p>
@@ -112,12 +105,19 @@ export default function Home() {
         <div className="container">
           <div className="split-7-5">
             <Reveal className="mosaic">
-              <div className="photo"><Picture photo={photo('totem-night')} sizes="(max-width: 760px) 100vw, 30vw" /></div>
-              <div className="photo"><Picture photo={photo('cafe-front')} sizes="(max-width: 760px) 50vw, 15vw" /></div>
-              <div className="photo"><Picture photo={photo('site-parking')} sizes="(max-width: 760px) 50vw, 15vw" /></div>
-              <div className="photo"><Picture photo={photo('cafe-seating')} sizes="(max-width: 760px) 50vw, 15vw" /></div>
-              <div className="photo"><Picture photo={photo('charger-unit')} sizes="(max-width: 760px) 50vw, 15vw" /></div>
-              <div className="photo"><Picture photo={photo('site-overview')} sizes="(max-width: 760px) 50vw, 15vw" /></div>
+              {[
+                ['hub-night', '(max-width: 760px) 66vw, 36vw'],
+                ['cafe', '(max-width: 760px) 33vw, 18vw'],
+                ['breakfast', '(max-width: 760px) 33vw, 18vw'],
+                ['charging-bay', '(max-width: 760px) 33vw, 18vw'],
+                ['lounge', '(max-width: 760px) 33vw, 18vw'],
+                ['parking', '(max-width: 760px) 33vw, 18vw'],
+              ].map(([name, sizes]) => (
+                <figure key={name} className="photo">
+                  <Picture photo={SCENES[name]} sizes={sizes} />
+                  <figcaption className="photo__caption">{SCENES[name].caption}</figcaption>
+                </figure>
+              ))}
             </Reveal>
 
             <Reveal delay="1">

@@ -48,7 +48,7 @@ export function outletJsonLd(outlet) {
     '@id': `${url}#station`,
     name: outlet.title,
     url,
-    image: outlet.photos.slice(0, 3).map((p) => `${BASE_URL}${p.src}-1280.webp`),
+    image: `${BASE_URL}/images/outlets/${outlet.id}/og-1200x630.jpg`,
     telephone: companyInfo.contact.primaryPhone,
     priceRange: outlet.specs.tariff,
     parentOrganization: { '@id': ORG_ID },

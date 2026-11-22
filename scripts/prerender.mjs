@@ -38,10 +38,10 @@ function preloadFor(routePath) {
   }
   const outlet = outletsData.find((o) => routePath === `/outlets/${o.id}`);
   if (outlet) {
-    const hero = outlet.photos.find((p) => p.src === outlet.images.hero);
+    const hero = outlet.images.hero;
     const w640 = Math.min(640, hero.width);
     const wMax = Math.min(1280, hero.width);
-    return `<link rel="preload" as="image" type="image/avif" imagesrcset="${hero.src}-640.avif ${w640}w, ${hero.src}-1280.avif ${wMax}w" imagesizes="100vw" fetchpriority="high" />`;
+    return `<link rel="preload" as="image" type="image/avif" imagesrcset="${hero.src}-640.avif ${w640}w, ${hero.src}-1280.avif ${wMax}w" imagesizes="(min-width: 1024px) 58vw, 100vw" fetchpriority="high" />`;
   }
   return '';
 }

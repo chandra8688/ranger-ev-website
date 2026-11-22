@@ -115,19 +115,21 @@ describe('outletsData', () => {
           expect(outlet.specs.tariff).toContain(String(outlet.specs.tariffPerKwh));
         });
 
-        // --- Photos ---
-        it('has photos with alt text and dimensions', () => {
-          expect(outlet.photos.length).toBeGreaterThan(0);
-          outlet.photos.forEach((p) => {
-            expect(p.src).toMatch(/^\//);
+        // --- Imagery ---
+        const images = () => [outlet.images.hero, outlet.images.card, ...outlet.gallery];
+
+        it('has imagery with alt text and dimensions', () => {
+          expect(outlet.gallery.length).toBeGreaterThan(0);
+          images().forEach((p) => {
+            expect(p.src.startsWith('/images/scenes/')).toBe(true);
             expect(p.alt.trim().length).toBeGreaterThan(10);
             expect(p.width).toBeGreaterThan(0);
             expect(p.height).toBeGreaterThan(0);
           });
         });
 
-        it('ships every photo variant referenced by the data', () => {
-          outlet.photos.forEach((p) => {
+        it('ships every image variant referenced by the data', () => {
+          images().forEach((p) => {
             for (const size of ['640', '1280']) {
               for (const ext of ['webp', 'avif']) {
                 const file = `${p.src}-${size}.${ext}`;
@@ -137,10 +139,8 @@ describe('outletsData', () => {
           });
         });
 
-        it('uses one of its own photos as hero and card image', () => {
-          const srcs = outlet.photos.map((p) => p.src);
-          expect(srcs).toContain(outlet.images.hero);
-          expect(srcs).toContain(outlet.images.card);
+        it('has a 1200x630 link-preview image', () => {
+          expect(fs.existsSync(path.join(PUBLIC, 'images', 'outlets', outlet.id, 'og-1200x630.jpg'))).toBe(true);
         });
       });
     });

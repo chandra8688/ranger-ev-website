@@ -10,7 +10,7 @@
     "lint": "eslint src",
     "test": "vitest run",
     "test:watch": "vitest",
-    "process-photos": "node scripts/process-photos.cjs assets-src/outlets"
+    "process-images": "node scripts/process-images.cjs"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.3.0",

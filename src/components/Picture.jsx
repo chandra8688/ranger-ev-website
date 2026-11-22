@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Responsive AVIF/WebP picture for photos produced by scripts/process-photos.cjs.
+ * Responsive AVIF/WebP picture for photos produced by scripts/process-images.cjs.
  * `photo` = { src (base path), width, height, alt }.
  */
 export default function Picture({ photo, sizes = '100vw', eager = false, className, imgClassName, style, alt }) {

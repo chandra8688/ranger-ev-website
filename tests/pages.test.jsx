@@ -27,11 +27,11 @@ const renderAt = (path) =>
   );
 
 describe('OutletDetail', () => {
-  it('shows the tariff, real photos and directions for a valid outlet', () => {
+  it('shows the tariff, imagery and directions for a valid outlet', () => {
     const { container } = renderAt('/outlets/outlet-01');
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('RANGER Outlet #01');
     expect(container.textContent).toContain('₹23');
-    expect(container.querySelector('img[src*="/images/outlets/outlet-01/"]')).not.toBeNull();
+    expect(container.querySelector('img[src*="/images/scenes/"]')).not.toBeNull();
     const directions = screen.getAllByRole('link', { name: /directions|navigate/i })[0];
     expect(directions.getAttribute('href')).toMatch(/^https:\/\/www\.google\.com\/maps\/dir\//);
     expect(document.querySelector('meta[name="robots"]')).toBeNull();

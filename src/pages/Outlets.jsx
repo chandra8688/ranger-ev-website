@@ -17,7 +17,7 @@ export default function Outlets() {
       <PageHero
         eyebrow="Charging network"
         title="RANGER outlets"
-        lead="24×7 DC fast charging on India’s highways. Pick an outlet for directions, pricing, photos and amenities."
+        lead="24×7 DC fast charging on India’s highways. Pick an outlet for directions, pricing and amenities."
       />
 
       <section className="section section--tight">
@@ -28,11 +28,10 @@ export default function Outlets() {
 
           <div className="stack" style={{ '--stack': '1.25rem' }}>
             {outletsData.map((o) => {
-              const cardPhoto = o.photos.find((p) => p.src === o.images.card);
               return (
                 <Reveal as="article" key={o.id} className="card card--interactive outlet-card" aria-labelledby={`${o.id}-title`}>
                   <div className="outlet-card__media">
-                    <Picture photo={cardPhoto} sizes="(max-width: 760px) 100vw, 40vw" eager />
+                    <Picture photo={o.images.card} sizes="(max-width: 760px) 100vw, 40vw" eager />
                   </div>
                   <div className="outlet-card__body">
                     <span className="badge badge--live" style={{ alignSelf: 'flex-start' }}><span className="dot" aria-hidden="true" />Operational</span>
