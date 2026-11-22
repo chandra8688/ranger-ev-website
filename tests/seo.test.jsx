@@ -12,6 +12,8 @@ vi.mock('../src/config.js', () => ({
   COMPANY_DOMAIN: 'ranger-ev-website.vercel.app',
   BASE_URL: 'https://ranger-ev-website.vercel.app',
   BUSINESS_EMAIL: 'rangerevhub@gmail.com',
+  GA_MEASUREMENT_ID: 'G-TEST',
+  DEFAULT_OG_IMAGE: '/og-image-1200x630.jpg',
 }));
 
 // Import AFTER mock is registered

@@ -3,7 +3,7 @@
 [![React 19](https://img.shields.io/badge/React-19.2-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Vite 6](https://img.shields.io/badge/Vite-6.4-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![React Router](https://img.shields.io/badge/React_Router-v7-CA4245?logo=reactrouter&logoColor=white)](https://reactrouter.com/)
-[![Vitest](https://img.shields.io/badge/Vitest-54_Passed-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/)
+[![Vitest](https://img.shields.io/badge/Vitest-79_Passed-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/)
 [![ESLint](https://img.shields.io/badge/ESLint-Clean-4B32C3?logo=eslint&logoColor=white)](https://eslint.org/)
 [![WCAG AA](https://img.shields.io/badge/Accessibility-WCAG_2.1_AA-success)](#accessibility--inclusive-design)
 
@@ -100,7 +100,7 @@ rangerev.com/
 │   ├── config.js                        # Environment & domain configuration constants
 │   ├── App.jsx                          # Route definition & layout wrapper
 │   └── main.jsx                         # React 19 root mounting
-├── tests/                               # Automated test suites (54 tests)
+├── tests/                               # Automated test suites (79 tests)
 │   ├── config.test.js                   # Configuration & domain invariants
 │   ├── formService.test.js              # Network request isolation & error handling
 │   ├── outletsData.test.js              # Station dataset contract verification
@@ -116,7 +116,7 @@ rangerev.com/
 
 ## Automated Testing Suite
 
-The project includes **54 automated unit and integration tests** built on **Vitest** and **React Testing Library**:
+The project includes **79 automated unit and integration tests** built on **Vitest** and **React Testing Library**:
 
 ```bash
 npm run test
@@ -129,7 +129,7 @@ npm run test
  ✓ tests/seo.test.jsx (15 tests)
 
  Test Files  4 passed (4)
-      Tests  54 passed (54)
+      Tests  79 passed (79)
 ```
 
 ### Coverage Highlights:
@@ -210,3 +210,4 @@ npm run test:watch
 ## License
 
 Private repository — All rights reserved © RANGER EV.
+

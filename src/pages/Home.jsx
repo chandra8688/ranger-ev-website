@@ -1,365 +1,266 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, MapPin, Zap, Clock } from 'lucide-react';
-import { companyInfo } from '../data/company';
-import SEO from '../components/SEO';
-import { BASE_URL, BUSINESS_EMAIL } from '../config';
+import { ArrowRight, MapPin, Navigation, Zap, Clock, Route as RouteIcon, PlugZap, Coffee } from 'lucide-react';
+import RouteSEO from '../components/RouteSEO';
 import TransitionTicker from '../components/TransitionTicker';
+import Reveal from '../components/Reveal';
+import Picture from '../components/Picture';
+import { outletsData, directionsUrl } from '../data/outlets';
+import { trackEvent } from '../lib/analytics';
+import { amenityIcon } from '../components/amenityIcons';
+import { SCENES } from '../data/scenes';
+
+const outlet = outletsData[0];
+
 
 export default function Home() {
   return (
-    <main>
-      <SEO 
-        title="RANGER EV | EV Fast Charging Network in India"
-        description="Building a reliable EV fast-charging network for India's highways. Experience seamless 60 kW DC charging designed for the long drive."
-        canonicalUrl={`${BASE_URL}/`}
-        jsonLd={[
-          {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "@id": `${BASE_URL}/#website`,
-            "name": "RANGER EV HUB",
-            "alternateName": "RANGER EV",
-            "url": BASE_URL,
-            "publisher": {
-              "@id": `${BASE_URL}/#organization`
-            }
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": ["Organization", "LocalBusiness"],
-            "@id": `${BASE_URL}/#organization`,
-            "name": "RANGER EV HUB",
-            "url": BASE_URL,
-            "logo": `${BASE_URL}/images/brand/ranger-logo-transparent.png`,
-            "telephone": companyInfo.contact.primaryPhone,
-            "email": BUSINESS_EMAIL,
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": companyInfo.contact.primaryPhone,
-              "contactType": "customer service",
-              "email": BUSINESS_EMAIL
-            },
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "NH 765 (Srisailam Highway)",
-              "addressLocality": "Ramnunthala, Amangal, Rangareddy",
-              "addressRegion": "Telangana",
-              "postalCode": "509321",
-              "addressCountry": "IN"
-            },
-            "openingHoursSpecification": {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday"
-              ],
-              "opens": "00:00",
-              "closes": "23:59"
-            },
-            "makesOffer": {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "EV Fast Charging Services",
-                "description": "60 kW DC CCS2 fast charging for Electric Vehicles"
-              }
-            }
-          }
-        ]}
-      />
-      
-      {/* ========================================================
-          SECTION 1: HERO
-          ======================================================== */}
-      <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: '80px', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img 
+    <>
+      <RouteSEO path="/" />
+
+      {/* HERO */}
+      <section className="hero" aria-labelledby="hero-title">
+        <div className="hero__media">
+          <img
             src="/images/cinematic/hero_cinematic_highway_v2_1786922470899.webp"
-            alt="Cinematic highway landscape representing the long drive"
+            width="1376"
+            height="768"
+            alt=""
             fetchPriority="high"
-            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '75% center' }}
+            decoding="sync"
           />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(17,18,20,0.95) 0%, rgba(17,18,20,0.5) 45%, transparent 100%)' }}></div>
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--bg-main) 0%, transparent 30%)' }}></div>
         </div>
-
-        <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-          <div style={{ maxWidth: '640px' }}>
-            <span className="hero-eyebrow">RANGER EV</span>
-            <h1 style={{ marginBottom: '1.5rem', lineHeight: 1.05 }}>Powering <br />Every Journey</h1>
-            <p className="t-lead" style={{ marginBottom: '2.5rem', color: 'rgba(255,255,255,0.8)' }}>
-              Building a reliable EV fast-charging network for India's highways.
-              Experience seamless 60 kW DC charging designed for the long drive.
+        <div className="container container--wide">
+          <div className="hero__content">
+            <p className="eyebrow">Highway EV fast charging · Telangana</p>
+            <h1 id="hero-title" className="display">Powering every journey.</h1>
+            <p className="lead">
+              24×7 DC fast-charging hubs on India&apos;s highways — with a café, Wi-Fi and a place to rest while your car charges.
             </p>
-
-            <div className="flex-gap-1">
-              <Link to="/outlets" className="btn btn--primary" style={{ padding: '1rem 2rem' }}>
+            <div className="cluster btn-row hero__actions">
+              <Link to={`/outlets/${outlet.id}`} className="btn btn--primary btn--lg">
                 <MapPin size={18} aria-hidden="true" />
-                Find Charging Station
+                Visit Outlet #01
               </Link>
-              <Link to="/outlets/outlet-01" className="btn btn--outline" style={{ padding: '1rem 2rem' }}>
-                View Outlet #01
-              </Link>
+              <a
+                href={directionsUrl(outlet)}
+                className="btn btn--secondary btn--lg"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent('click_directions', { outlet_id: outlet.id, location: 'home_hero' })}
+              >
+                <Navigation size={18} aria-hidden="true" />
+                Get directions
+                <span className="visually-hidden"> (opens Google Maps in a new tab)</span>
+              </a>
             </div>
           </div>
+
+          <dl className="stats" aria-label="Outlet #01 at a glance">
+            <div className="stat"><dt className="stat__label">DC output per charger</dt><dd className="stat__value">60<small>kW</small></dd></div>
+            <div className="stat"><dt className="stat__label">Charging points</dt><dd className="stat__value">{outlet.specs.totalChargingPoints}<small>CCS2</small></dd></div>
+            <div className="stat"><dt className="stat__label">Per kWh</dt><dd className="stat__value">₹{outlet.specs.tariffPerKwh}</dd></div>
+            <div className="stat"><dt className="stat__label">Always open</dt><dd className="stat__value">24×7</dd></div>
+          </dl>
         </div>
       </section>
 
-      {/* ========================================================
-          SECTION 1.5: TRUST STRIP
-          ======================================================== */}
       <TransitionTicker />
 
-      {/* ========================================================
-          SECTION 2: VISION / ABOUT
-          ======================================================== */}
-      <section className="section section--lg" style={{ background: 'var(--bg-main)', overflow: 'hidden' }}>
+      {/* VISION */}
+      <section className="section">
         <div className="container">
-          <div className="editorial-grid">
-            <div className="editorial-grid__left">
-              <img src="/images/cinematic/vision_charging_hub_1786922492514.webp" alt="Clean, premium EV charging hub environment at night" loading="lazy" decoding="async" style={{ width: '100%', height: 'auto', borderRadius: '4px', objectFit: 'cover', aspectRatio: '4/5' }} />
-            </div>
-            <div className="editorial-grid__right" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <span className="t-eyebrow t-eyebrow--orange">The Vision</span>
-              <h2 style={{ marginBottom: '1.5rem' }}>The Highway Charging Standard</h2>
-              <div className="green-rule"></div>
-              <p className="t-lead" style={{ marginTop: '1.5rem', color: 'rgba(255,255,255,0.8)' }}>
-                RANGER EV is an infrastructure provider dedicated to solving highway range anxiety. 
-                We deploy robust 60 kW CCS2 DC fast chargers at strategic locations, ensuring 
-                that drivers can travel cross-country with total confidence. Operational since August 2026.
+          <div className="grid-2 grid-center">
+            <Reveal className="photo ratio-4x5">
+              <Picture photo={SCENES['charging-hub']} sizes="(max-width: 860px) 100vw, 50vw" />
+            </Reveal>
+            <Reveal delay="1">
+              <p className="eyebrow">Why RANGER</p>
+              <h2>Built for the long drive, not the city block.</h2>
+              <p className="lead" style={{ marginTop: '1.25rem' }}>
+                Range anxiety lives on the highway. We put dependable DC fast chargers exactly where intercity drivers need them —
+                with food, restrooms and Wi-Fi on site, so a charging stop feels like a proper break.
               </p>
-              <img src="/images/cinematic/vision_highway_journey_1786922522954.webp" alt="Electric vehicle traveling on a dark highway" loading="lazy" decoding="async" style={{ width: '85%', height: 'auto', borderRadius: '4px', objectFit: 'cover', aspectRatio: '4/5', marginLeft: 'auto', display: 'block', marginTop: '2rem' }} />
-            </div>
+              <div className="stack" style={{ '--stack': '1.5rem', marginTop: '2.25rem' }}>
+                <div className="feature">
+                  <h3 className="h4"><Zap size={20} aria-hidden="true" className="inline-icon" />Fast DC charging</h3>
+                  <p>Dual-gun 60 kW CCS2 chargers — two cars per unit, four at the outlet.</p>
+                </div>
+                <div className="feature">
+                  <h3 className="h4"><Clock size={20} aria-hidden="true" className="inline-icon" />Open 24×7</h3>
+                  <p>The highway never sleeps, and neither do we. Support is a call or WhatsApp away.</p>
+                </div>
+                <div className="feature">
+                  <h3 className="h4"><RouteIcon size={20} aria-hidden="true" className="inline-icon" />On your route</h3>
+                  <p>Located on national highways with easy on-and-off access for long-distance travellers.</p>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* ========================================================
-          SECTION 3: DESIGNED AROUND THE JOURNEY
-          ======================================================== */}
-      <section className="section section--lg on-dark" style={{ background: 'var(--bg-surface)' }}>
+      {/* OUTLET #01 SPOTLIGHT */}
+      <section className="section section--surface section--border" aria-labelledby="outlet-title">
         <div className="container">
-          <div className="grid-auto-3" style={{ gap: '4rem' }}>
-            
-            <div style={{ paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-              <Zap size={28} aria-hidden="true" style={{ color: 'var(--ranger-green)', marginBottom: '1.5rem' }} />
-              <h3 className="h4" style={{ marginBottom: '1rem' }}>Fast Charging</h3>
-              <p style={{ fontSize: '1.125rem', lineHeight: 1.65 }}>Dual-gun 60 kW DC chargers utilizing the CCS2 standard, capable of charging two vehicles simultaneously to get you back on the road quickly.</p>
-            </div>
+          <div className="split-7-5">
+            <Reveal className="mosaic">
+              {[
+                ['hub-night', '(max-width: 760px) 66vw, 36vw'],
+                ['cafe', '(max-width: 760px) 33vw, 18vw'],
+                ['breakfast', '(max-width: 760px) 33vw, 18vw'],
+                ['charging-bay', '(max-width: 760px) 33vw, 18vw'],
+                ['lounge', '(max-width: 760px) 33vw, 18vw'],
+                ['parking', '(max-width: 760px) 33vw, 18vw'],
+              ].map(([name, sizes]) => (
+                <figure key={name} className="photo">
+                  <Picture photo={SCENES[name]} sizes={sizes} />
+                  <figcaption className="photo__caption">{SCENES[name].caption}</figcaption>
+                </figure>
+              ))}
+            </Reveal>
 
-            <div style={{ paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-              <Clock size={28} aria-hidden="true" style={{ color: 'var(--ranger-green)', marginBottom: '1.5rem' }} />
-              <h3 className="h4" style={{ marginBottom: '1rem' }}>24×7 Access</h3>
-              <p style={{ fontSize: '1.125rem', lineHeight: 1.65 }}>The highway never sleeps, and neither do we. RANGER outlets are operational 24 hours a day, 7 days a week for uninterrupted travel.</p>
-            </div>
+            <Reveal delay="1">
+              <span className="badge badge--live"><span className="dot" aria-hidden="true" />Open now · 24×7</span>
+              <h2 id="outlet-title" style={{ marginTop: '1.25rem' }}>RANGER Outlet #01</h2>
+              <p className="lead" style={{ marginTop: '1rem' }}>
+                Our first hub is live on the Srisailam Highway (NH 765) near {outlet.landmark} — a real stop with a café and
+                breakfast, not just a plug.
+              </p>
 
-            <div style={{ paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-              <MapPin size={28} aria-hidden="true" style={{ color: 'var(--ranger-green)', marginBottom: '1.5rem' }} />
-              <h3 className="h4" style={{ marginBottom: '1rem' }}>Strategic Locations</h3>
-              <p style={{ fontSize: '1.125rem', lineHeight: 1.65 }}>Situated on major national routes with easy on-and-off access, designed specifically to serve long-distance commuters and travelers.</p>
-            </div>
+              <div className="specs" style={{ marginTop: '1.75rem' }}>
+                <div className="specs__row"><span className="specs__label">Location</span><span className="specs__value">{outlet.shortName}, NH 765</span></div>
+                <div className="specs__row"><span className="specs__label">Chargers</span><span className="specs__value">2 × 60 kW DC · 4 points</span></div>
+                <div className="specs__row"><span className="specs__label">Tariff</span><span className="specs__value specs__value--green">{outlet.specs.tariff}</span></div>
+                <div className="specs__row"><span className="specs__label">Opened</span><span className="specs__value">{outlet.openedDisplay}</span></div>
+              </div>
 
+              <ul className="amenity-list" style={{ marginTop: '1.75rem' }} aria-label="Amenities">
+                {outlet.amenities.map((a) => {
+                  const Icon = amenityIcon(a.id);
+                  return <li key={a.id} className="amenity"><Icon size={18} aria-hidden="true" />{a.name}</li>;
+                })}
+              </ul>
+
+              <div className="cluster btn-row" style={{ marginTop: '2rem' }}>
+                <Link to={`/outlets/${outlet.id}`} className="btn btn--primary">
+                  Station details
+                  <ArrowRight size={16} aria-hidden="true" />
+                </Link>
+                <a
+                  href={directionsUrl(outlet)}
+                  className="btn btn--secondary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent('click_directions', { outlet_id: outlet.id, location: 'home_spotlight' })}
+                >
+                  <Navigation size={16} aria-hidden="true" />
+                  Directions
+                  <span className="visually-hidden"> (opens Google Maps in a new tab)</span>
+                </a>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* ========================================================
-          SECTION 4: TECHNOLOGY / CHARGERS
-          ======================================================== */}
-      <section className="section section--lg on-dark" style={{ background: 'var(--bg-dark-surface)', padding: 0, overflow: 'hidden' }}>
-        <div className="split-50">
-          <div style={{ position: 'relative', minHeight: '600px', background: 'var(--bg-dark-surface)' }}>
-            <img src="/images/chargers/charger_home_transparent.webp" alt="RANGER 60 kW DC Fast Charger" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center bottom', paddingBottom: '2rem', paddingTop: '2rem' }} />
+      {/* HOW IT WORKS */}
+      <section className="section">
+        <div className="container">
+          <Reveal className="section-head">
+            <p className="eyebrow">How it works</p>
+            <h2>Charging at RANGER in three steps.</h2>
+          </Reveal>
+          <div className="steps">
+            <Reveal className="step">
+              <h3><MapPin size={20} aria-hidden="true" className="inline-icon" />Navigate</h3>
+              <p>Open directions to the outlet. Look for the illuminated RANGER totem at the entrance.</p>
+            </Reveal>
+            <Reveal className="step" delay="1">
+              <h3><PlugZap size={20} aria-hidden="true" className="inline-icon" />Plug in</h3>
+              <p>Park at a free bay and connect the CCS2 gun to your car. Our on-site team and 24×7 line can help.</p>
+            </Reveal>
+            <Reveal className="step" delay="2">
+              <h3><Coffee size={20} aria-hidden="true" className="inline-icon" />Take a break</h3>
+              <p>Grab breakfast or a coffee, use the Wi-Fi and restrooms, and drive on charged up.</p>
+            </Reveal>
           </div>
-          <div style={{ padding: '6rem 4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <span className="t-eyebrow t-eyebrow--glow">Technology</span>
-            <h2 style={{ marginBottom: '1.5rem' }}>Built for the demands of highway travel.</h2>
-            <div className="green-rule"></div>
-            <p className="t-lead" style={{ marginBottom: '2.5rem', marginTop: '1.5rem' }}>
-              The RANGER 60 kW DC Fast Charger is designed for reliability and speed.
-              Featuring dual CCS2 charging guns, it provides efficient power delivery
-              for modern electric vehicles.
-            </p>
-            <div style={{ display: 'flex', gap: '3rem', marginBottom: '2.5rem' }}>
-              <div className="spec-stat">
-                <div className="spec-stat__number">60<span className="spec-stat__unit">kW</span></div>
-                <div className="spec-stat__label">DC Power</div>
-              </div>
-              <div className="spec-stat">
-                <div className="spec-stat__number spec-stat__number--green">2</div>
-                <div className="spec-stat__label">EVs Simultaneously</div>
-              </div>
+        </div>
+      </section>
+
+      {/* TECHNOLOGY */}
+      <section className="section section--surface section--border">
+        <div className="container">
+          <div className="grid-2 grid-center">
+            <Reveal>
+              <img
+                src="/images/chargers/charger_home_transparent.webp"
+                width="961"
+                height="947"
+                alt="RANGER 60 kW DC fast charger"
+                loading="lazy"
+                decoding="async"
+                style={{ maxHeight: 560, width: 'auto', marginInline: 'auto' }}
+              />
+            </Reveal>
+            <Reveal delay="1">
+              <p className="eyebrow">Technology</p>
+              <h2>The RANGER 60 kW DC fast charger.</h2>
+              <p className="lead" style={{ marginTop: '1.25rem' }}>
+                Custom RANGER-branded, Make in India hardware with two CCS2 guns per unit — compatible with most electric cars sold in India.
+              </p>
+              <dl className="stats" style={{ marginTop: '2rem', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', background: 'transparent' }}>
+                <div className="stat"><dt className="stat__label">DC power</dt><dd className="stat__value">60<small>kW</small></dd></div>
+                <div className="stat"><dt className="stat__label">Cars per charger</dt><dd className="stat__value">2</dd></div>
+              </dl>
+              <Link to="/chargers" className="link-arrow" style={{ marginTop: '2rem' }}>
+                Specifications &amp; cost estimator <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* PARTNER */}
+      <section className="section">
+        <div className="container">
+          <Reveal className="card card--2" style={{ display: 'grid', gap: '2rem', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', alignItems: 'center' }}>
+            <div>
+              <p className="eyebrow">Grow the network</p>
+              <h2 className="h3">Own land or a business on a highway?</h2>
             </div>
             <div>
-              <Link to="/chargers" className="btn btn--outline" style={{ color: 'var(--clr-white)', borderColor: 'rgba(255,255,255,0.3)' }}>
-                View Technical Specifications
+              <p>
+                Outlet #01 is just the beginning. Partner with RANGER to host a fast-charging hub at your dhaba, hotel, fuel
+                station or commercial plot — and bring EV travellers to your door.
+              </p>
+              <Link to="/partner" className="btn btn--secondary" style={{ marginTop: '1.5rem' }}>
+                Partner with RANGER <ArrowRight size={16} aria-hidden="true" />
               </Link>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* ========================================================
-          SECTION 5: OUTLET #01
-          ======================================================== */}
-      <section className="section section--lg on-dark" style={{ position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img src="/images/cinematic/network_highway_scene_1786922800043.webp" alt="Atmospheric highway scene at dusk" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, var(--bg-main) 0%, rgba(17,18,20,0.8) 100%)' }}></div>
+      {/* CLOSING CTA */}
+      <section className="cta-band" aria-labelledby="cta-title">
+        <div className="cta-band__media">
+          <img src="/images/cinematic/final_cta_highway_1786922809369.webp" width="1376" height="768" alt="" loading="lazy" decoding="async" />
         </div>
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <div className="editorial-grid">
-            <div className="editorial-grid__left">
-              <span className="status-badge status-badge--op" style={{ marginBottom: '1.5rem', display: 'inline-flex' }}>
-                <span className="status-dot"></span>
-                First Operational Outlet
-              </span>
-              
-              <h2 style={{ marginBottom: '1.5rem', lineHeight: 1.1 }}>RANGER Outlet #01</h2>
-              <p className="t-lead" style={{ marginBottom: '2.5rem', color: 'rgba(255,255,255,0.7)' }}>
-                Our inaugural charging hub is now live on the Srisailam Highway (NH 765),
-                providing a crucial energy link for travelers heading south.
-              </p>
-
-              <div className="info-strip" style={{ marginBottom: '2rem' }}>
-                <div className="info-row">
-                  <span className="info-label">Location</span>
-                  <span className="info-value">Ayyasagar, NH 765</span>
-                </div>
-                <div className="info-row">
-                  <span className="info-label">Status</span>
-                  <span className="info-value info-value--green">Operational 24×7</span>
-                </div>
-                <div className="info-row">
-                  <span className="info-label">Capacity</span>
-                  <span className="info-value">2 Chargers / 4 Points</span>
-                </div>
-              </div>
-
-              <Link to="/outlets/outlet-01" className="btn btn--outline" style={{ padding: '1rem 2rem' }}>
-                View Location Details
-                <ArrowRight size={16} aria-hidden="true" />
-              </Link>
-            </div>
+        <div className="container container--narrow">
+          <h2 id="cta-title">Ready for your next journey?</h2>
+          <p className="lead">Plan your stop at RANGER Outlet #01 on NH 765 — open 24×7.</p>
+          <div className="cluster btn-row" style={{ justifyContent: 'center' }}>
+            <Link to="/outlets" className="btn btn--primary btn--lg">
+              <MapPin size={18} aria-hidden="true" />
+              Find a charger
+            </Link>
+            <Link to="/chargers#estimate" className="btn btn--secondary btn--lg">
+              Estimate charging cost
+            </Link>
           </div>
         </div>
       </section>
-
-      {/* ========================================================
-          SECTION 6: AMENITIES / EXPERIENCE
-          ======================================================== */}
-      <section className="section section--lg" style={{ background: 'var(--bg-surface)' }}>
-        <div className="container">
-          <div className="text-center" style={{ maxWidth: '700px', margin: '0 auto 3.5rem' }}>
-            <h2>More Than Just Charging</h2>
-            <p className="t-lead" style={{ marginTop: '1rem', color: 'var(--txt-muted)' }}>
-              RANGER outlets are co-located with essential amenities, turning your charging time into a comfortable break.
-            </p>
-          </div>
-
-          <div className="masonry-grid">
-            <div className="amenity-card masonry-item">
-              <div className="editorial-image">
-                <img src="/images/cinematic/amenity_charging_1786922724004.webp" alt="Vehicle charging port connected to a charger" loading="lazy" decoding="async" />
-              </div>
-              <div className="amenity-card-content">
-                <div className="amenity-card-title">60kW Fast Charging</div>
-              </div>
-            </div>
-            
-            <div className="amenity-card masonry-item">
-              <div className="editorial-image">
-                <img src="/images/cinematic/amenity_parking.webp" alt="Spacious parking bays at a charging facility" loading="lazy" decoding="async" />
-              </div>
-              <div className="amenity-card-content">
-                <div className="amenity-card-title">Ample Parking</div>
-              </div>
-            </div>
-
-            <div className="amenity-card masonry-item">
-              <div className="editorial-image">
-                <img src="/images/cinematic/amenity_cafe_1786922734138.webp" alt="Modern cafe interior with seating" loading="lazy" decoding="async" />
-              </div>
-              <div className="amenity-card-content">
-                <div className="amenity-card-title">Food & Refreshments</div>
-              </div>
-            </div>
-            
-            <div className="amenity-card masonry-item">
-              <div className="editorial-image">
-                <img src="/images/cinematic/amenity_toilets_1786922787166.webp" alt="Modern clean restroom facilities" loading="lazy" decoding="async" />
-              </div>
-              <div className="amenity-card-content">
-                <div className="amenity-card-title">Clean Restrooms</div>
-              </div>
-            </div>
-            
-            <div className="amenity-card masonry-item masonry-item--wide">
-              <div className="editorial-image">
-                <img src="/images/cinematic/amenity_wifi_1786922760773.webp" alt="Conceptual digital connectivity graphic" loading="lazy" decoding="async" style={{ aspectRatio: '21/9', objectFit: 'cover', width: '100%' }} />
-              </div>
-              <div className="amenity-card-content">
-                <div className="amenity-card-title">Free Wi-Fi</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================
-          SECTION 7: PARTNER
-          ======================================================== */}
-      <section className="section section--lg" style={{ background: 'var(--bg-main)' }}>
-        <div className="container">
-          <div className="editorial-grid">
-            <div className="editorial-grid__left" style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem' }}>
-              <span className="t-eyebrow" style={{ color: 'var(--txt-muted)' }}>The Future</span>
-              <h2 className="h1" style={{ marginBottom: '1.5rem', lineHeight: 1.1 }}>Expanding the RANGER Network</h2>
-            </div>
-            <div className="editorial-grid__right" style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem' }}>
-              <p className="t-lead" style={{ marginTop: '1.5rem', marginBottom: '1.5rem', color: 'var(--txt-inverse)' }}>
-                Outlet #01 is just the beginning. We are actively identifying new strategic
-                highway locations to build a comprehensive charging network.
-              </p>
-              <p style={{ marginBottom: '2rem', color: 'var(--txt-muted)' }}>
-                If you own commercial property or land along a major highway, partner with RANGER
-                to host next-generation EV infrastructure.
-              </p>
-              <Link to="/partner" className="btn btn--outline" style={{ padding: '1rem 2rem' }}>
-                Partner With RANGER
-                <ArrowRight size={16} aria-hidden="true" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================
-          SECTION 8: CLOSING CTA
-          ======================================================== */}
-      <section className="section section--lg" style={{ position: 'relative', overflow: 'hidden', minHeight: '80vh', display: 'flex', alignItems: 'center' }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img src="/images/cinematic/final_cta_highway_1786922809369.webp" alt="Empty highway leading to the horizon" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(17,18,20,0.95) 0%, rgba(17,18,20,0.5) 100%)' }}></div>
-        </div>
-        <div className="container" style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
-          <h2 style={{ marginBottom: '1rem', color: 'var(--clr-white)' }}>Ready for your next journey?</h2>
-          <p className="t-lead" style={{ marginBottom: '2.5rem', color: 'rgba(255,255,255,0.8)', maxWidth: '600px', margin: '0 auto 2.5rem' }}>
-            Find a RANGER charging outlet along your route and experience reliable, fast highway charging.
-          </p>
-          <Link to="/outlets" className="btn btn--primary" style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem' }}>
-            <MapPin size={20} aria-hidden="true" />
-            Find a Charger
-          </Link>
-        </div>
-      </section>
-
-    </main>
+    </>
   );
 }
