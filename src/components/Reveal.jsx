@@ -10,7 +10,9 @@ export default function Reveal({ as: Tag = 'div', delay, className = '', childre
   useEffect(() => {
     const el = ref.current;
     if (!el) return undefined;
-    if (typeof IntersectionObserver === 'undefined') {
+    // Already on screen at mount (above the fold): show immediately, no fade.
+    const rect = el.getBoundingClientRect();
+    if (typeof IntersectionObserver === 'undefined' || rect.top < window.innerHeight) {
       el.classList.add('is-visible');
       return undefined;
     }

@@ -974,3 +974,49 @@ These issues were **diagnosed and documented** but intentionally NOT implemented
 ---
 
 *Last updated: November 22, 2026 by Antigravity AI assistant.*
+
+---
+
+## 25. Stage 7: Full Review & Premium Overhaul (22 Nov 2026)
+
+**Branch:** `review-fixes` · **Backup tag:** `backup/pre-review-2026-11-22` (original `main` @ `41e2206`).
+Revert everything with `git switch main` (main is untouched) or `git reset --hard backup/pre-review-2026-11-22` on any branch.
+
+### Critical bugs fixed
+| # | Bug | Fix |
+| :--- | :--- | :--- |
+| 1 | Mobile drawer could not be closed at 768–992 px (covered the toggle) | Drawer rendered outside the blurred `<header>` (backdrop-filter created a stacking context); Escape, backdrop click, focus trap, `inert` when closed |
+| 2 | Page headings hidden under the fixed navbar | `.page { padding-top: var(--nav-h) }` on every route |
+| 3 | Outlets page showed "coming soon" before the real outlet on mobile | Removed `order: -1`; outlet card first |
+| 4 | GA4 double-counted the landing page view; wrong page titles | `send_page_view: false` + one `page_view` per route after `<SEO>` sets the title |
+| 5 | `/outlets/<unknown>` was an indexable soft 404 | Renders `NotFound` (noindex); Vercel now returns real HTTP 404 via `404.html` |
+| 6 | Forms had no honeypot despite the commit message | `_gotcha` honeypot + 1.5 s timing check, `role="alert"` / `role="status"` |
+| 7 | ₹23/kWh tariff never displayed | Price card, stats strip, specs, FAQ, estimator |
+| 8 | Outlet page used an AI render instead of the real station | Real outlet photos (AVIF/WebP, EXIF stripped) + gallery/lightbox |
+
+### Also fixed
+Nested `<main>`, hidden drawer links focusable, undefined CSS vars, footer "Corporate Office" blank map link,
+JSON-LD without geo, wrong `og:image` size, stale canonical between routes, unreadable route diagram (removed),
+navbar crowding at ~1000 px (breakpoint now 1100 px), unverifiable claims ("real-time status", "Network Online"),
+legacy `maps.google.com?q=` → official `google.com/maps/dir/?api=1` directions links, 880 px logo → 96/192 px WebP,
+Manrope weight 500/900 issue (self-hosted variable fonts), vendor chunk matched by path.
+
+### New
+Unified dark design system (WCAG AA verified on every page) · hero stats strip · scroll reveals · view transitions ·
+outlet gallery + lightbox, price card, FAQ (+ FAQPage schema), click-to-load Google Map · Leaflet network map (OpenStreetMap tiles) ·
+Chargers spec table, compatible cars, charging time & cost estimator · floating WhatsApp · Consent Mode v2 banner ·
+Privacy policy · PWA manifest + service worker · build-time per-route `<head>` prerender (`scripts/prerender.mjs`),
+generated sitemap · Vercel security headers (CSP report-only) and immutable asset caching · GA4 conversion events
+(`click_directions`, `click_call`, `click_whatsapp`, `submit_contact_form`, `submit_partner_form`).
+
+### Housekeeping
+36 unused images moved out of `public/` to `local-archive/public-unused-2026-11-22/` (gitignored; also recoverable from git history).
+Photo originals live in `assets-src/`; regenerate variants with `npm run process-photos`. `scripts/optimize.cjs` removed.
+Tests: 54 → 79 (navbar, forms, 404, estimator, route metadata, photo files).
+
+### Needs the owner
+- Custom domain (then update `COMPANY_DOMAIN` in `src/config.js`)
+- Real driver reviews, certifications, payment methods (not invented on the site)
+- Legal review of `/privacy`
+- After deploy: check the browser console for CSP reports, then switch `Content-Security-Policy-Report-Only` to enforcing
+- Spam protection beyond honeypot (Cloudflare Turnstile) needs a site key
