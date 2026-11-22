@@ -1018,5 +1018,5 @@ Tests: 54 → 79 (navbar, forms, 404, estimator, route metadata, photo files).
 - Custom domain (then update `COMPANY_DOMAIN` in `src/config.js`)
 - Real driver reviews, certifications, payment methods (not invented on the site)
 - Legal review of `/privacy`
-- After deploy: check the browser console for CSP reports, then switch `Content-Security-Policy-Report-Only` to enforcing
+- CSP enforced since 22 Nov 2026 (zero reports on production first). If a new third-party service is added, add its domain to vercel.json
 - Spam protection beyond honeypot (Cloudflare Turnstile) needs a site key
