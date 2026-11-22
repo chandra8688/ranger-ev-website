@@ -1,140 +1,104 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Target, Map, Zap } from 'lucide-react';
-import RouteGraphic from '../components/illustrations/RouteGraphic';
+import { Target, Map, Zap, ArrowRight } from 'lucide-react';
+import RouteSEO from '../components/RouteSEO';
+import PageHero from '../components/PageHero';
 import TransitionTicker from '../components/TransitionTicker';
-import SEO from '../components/SEO';
-import { BASE_URL } from '../config';
+import Picture from '../components/Picture';
+import Reveal from '../components/Reveal';
+import { outletsData } from '../data/outlets';
+
+const outlet = outletsData[0];
+const photo = (name) => outlet.photos.find((p) => p.src.endsWith(name));
+
+const VALUES = [
+  { icon: Zap, title: 'Dependable hardware', body: 'Industrial-grade 60 kW DC chargers with two CCS2 guns, backed by a 24×7 support line.' },
+  { icon: Map, title: 'Highway focused', body: 'We build on intercity routes, not crowded city centres — our job is to make long EV trips easy.' },
+  { icon: Target, title: 'Driver experience', body: 'Charging takes time, so every outlet pairs chargers with food, restrooms, Wi-Fi and parking.' },
+];
 
 export default function About() {
   return (
-    <main>
-      <SEO 
-        title="RANGER EV | About Our EV Charging Infrastructure"
-        description="Learn how RANGER EV is building a robust, reliable 60 kW CCS2 highway charging network to eliminate range anxiety across India."
-        canonicalUrl={`${BASE_URL}/about`}
+    <div className="page">
+      <RouteSEO path="/about" />
+      <PageHero
+        eyebrow="About RANGER"
+        title="Building India’s highway charging network."
+        lead="RANGER EV exists to solve the hardest part of electric mobility: fast, reliable charging for long-distance travel."
       />
-      {/* Hero */}
-      <section className="section section--lg on-light" style={{ background: 'var(--surface-light)' }}>
-        <div className="container text-center" style={{ maxWidth: '800px' }}>
-          <span className="t-eyebrow t-eyebrow--orange">About RANGER</span>
-          <h1 style={{ marginBottom: '1.5rem' }}>Building the Highway Charging Network</h1>
-          <p className="t-lead" style={{ margin: '0 auto' }}>
-            RANGER EV is dedicated to solving the biggest challenge in electric mobility:
-            reliable, fast charging for long-distance travel on India's highways.
-          </p>
-        </div>
-      </section>
 
       <TransitionTicker />
 
-      {/* Our Beginning */}
       <section className="section">
         <div className="container">
-          <div className="grid-2" style={{ alignItems: 'center' }}>
-            <div>
-              <h2 style={{ marginBottom: '1rem' }}>Our Beginning</h2>
-              <div className="green-rule"></div>
-              <p className="t-lead" style={{ marginTop: '1.5rem', marginBottom: '1rem' }}>
-                Every journey starts with a single step. For RANGER, that step was the opening of
-                <strong> Outlet #01 on August 2, 2026</strong>.
+          <div className="grid-2 grid-center">
+            <Reveal>
+              <p className="eyebrow">Our beginning</p>
+              <h2>It started with Outlet #01.</h2>
+              <p className="lead" style={{ marginTop: '1.25rem' }}>
+                On <strong>{outlet.openedDisplay}</strong> we opened our first hub at {outlet.shortName} on the Srisailam Highway (NH 765).
               </p>
-              <p style={{ marginBottom: '1rem' }}>
-                Located at Ayyasagar on the Srisailam Highway (NH 765), this inaugural 24x7 hub
-                serves as the blueprint for our future. We focused on getting the fundamentals right:
-                60 kW DC fast charging, CCS2 compatibility, and co-location with essential driver amenities.
+              <p style={{ marginTop: '1rem' }}>
+                It is the blueprint for everything that follows: 60 kW DC fast charging, CCS2 compatibility, 24×7 access, and a
+                café, restrooms and Wi-Fi so drivers can actually rest.
               </p>
-              <p>
-                We are systematically expanding our highway network, focusing strictly on high-reliability hardware and strategic location acquisition.
+              <p style={{ marginTop: '1rem' }}>
+                We are expanding one carefully chosen highway site at a time, with the same hardware and the same standard at every stop.
               </p>
-            </div>
-
-            <div style={{ background: 'var(--surface-elevated)', padding: '3rem 2rem', borderRadius: 'var(--radius-lg)' }}>
-              <h3 style={{ marginBottom: '1.5rem', color: 'var(--text-primary-dark)' }}>Outlet #01 Facts</h3>
-
-              <div className="info-strip info-strip--dark">
-                <div className="info-row info-row--dark">
-                  <span className="info-label info-label--dark">Opened</span>
-                  <span className="info-value info-value--dark">2 August 2026</span>
-                </div>
-                <div className="info-row info-row--dark">
-                  <span className="info-label info-label--dark">Location</span>
-                  <span className="info-value info-value--dark">NH 765, Ayyasagar</span>
-                </div>
-                <div className="info-row info-row--dark">
-                  <span className="info-label info-label--dark">Technology</span>
-                  <span className="info-value info-value--dark">60 kW DC Fast Charging</span>
-                </div>
-                <div className="info-row info-row--dark" style={{ borderBottom: 'none' }}>
-                  <span className="info-label info-label--dark">Availability</span>
-                  <span className="info-value info-value--green">24x7</span>
-                </div>
-              </div>
-            </div>
+            </Reveal>
+            <Reveal className="photo ratio-4x3" delay="1">
+              <Picture photo={photo('site-overview')} sizes="(max-width: 860px) 100vw, 50vw" />
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Why RANGER */}
-      <section className="section" style={{ background: 'var(--surface-elevated)' }}>
+      <section className="section section--surface section--border">
         <div className="container">
-          <div className="text-center" style={{ marginBottom: '3.5rem' }}>
-            <h2 style={{ marginBottom: '1rem' }}>The RANGER Difference</h2>
-            <p className="t-lead" style={{ maxWidth: '600px', margin: '0 auto' }}>
-              Why choose our network for your highway journey?
-            </p>
+          <div className="section-head text-center">
+            <p className="eyebrow">What drives us</p>
+            <h2>The RANGER difference</h2>
           </div>
-
-          <div className="grid-auto-3">
-            <div className="partner-cat">
-              <div className="partner-cat__icon">
-                <Zap size={22} />
-              </div>
-              <h3 className="h4" style={{ marginBottom: '0.5rem' }}>Dependable Hardware</h3>
-              <p>We deploy industrial-grade 60 kW DC chargers that deliver consistent power without overheating or unexpected throttling.</p>
-            </div>
-
-            <div className="partner-cat">
-              <div className="partner-cat__icon">
-                <Map size={22} />
-              </div>
-              <h3 className="h4" style={{ marginBottom: '0.5rem' }}>Highway Focused</h3>
-              <p>We don't build in crowded city centers. Our mission is strictly to enable intercity and cross-country travel.</p>
-            </div>
-
-            <div className="partner-cat">
-              <div className="partner-cat__icon">
-                <Target size={22} />
-              </div>
-              <h3 className="h4" style={{ marginBottom: '0.5rem' }}>Driver Experience</h3>
-              <p>Charging takes time. That's why we co-locate our chargers with food, restrooms, and parking, ensuring a restful stop.</p>
-            </div>
+          <div className="grid-3">
+            {VALUES.map(({ icon: Icon, title, body }, i) => (
+              <Reveal key={title} className="card card--interactive" delay={String(i)}>
+                <span className="icon-tile"><Icon size={22} aria-hidden="true" /></span>
+                <h3 className="h4">{title}</h3>
+                <p>{body}</p>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Where We're Going */}
-      <section className="section section--lg">
-        <div className="container text-center">
-          <span className="t-eyebrow">The Vision</span>
-          <h2 style={{ marginBottom: '1rem' }}>Where We're Going</h2>
-          <div className="green-rule green-rule--center"></div>
-          <p className="t-lead" style={{ maxWidth: '700px', margin: '1.5rem auto 3rem' }}>
-            The transition to electric mobility requires infrastructure that drivers can trust.
-            RANGER is expanding its footprint along major corridors, bringing our standard of
-            reliable fast charging to new highways.
-          </p>
-
-          <div style={{ maxWidth: '600px', margin: '0 auto 3rem' }}>
-            <RouteGraphic style={{ width: '100%' }} />
+      <section className="section">
+        <div className="container">
+          <div className="grid-2 grid-center">
+            <Reveal className="card card--2">
+              <h3 className="h4">Outlet #01 at a glance</h3>
+              <div className="specs" style={{ marginTop: '1rem' }}>
+                <div className="specs__row"><span className="specs__label">Opened</span><span className="specs__value">{outlet.openedDisplay}</span></div>
+                <div className="specs__row"><span className="specs__label">Location</span><span className="specs__value">NH 765, {outlet.shortName}</span></div>
+                <div className="specs__row"><span className="specs__label">Chargers</span><span className="specs__value">2 × 60 kW DC (CCS2)</span></div>
+                <div className="specs__row"><span className="specs__label">Tariff</span><span className="specs__value">{outlet.specs.tariff}</span></div>
+                <div className="specs__row"><span className="specs__label">Availability</span><span className="specs__value specs__value--green">24×7</span></div>
+              </div>
+            </Reveal>
+            <Reveal delay="1">
+              <p className="eyebrow">Where we’re going</p>
+              <h2>The next stops on the map.</h2>
+              <p className="lead" style={{ marginTop: '1.25rem' }}>
+                The shift to electric needs infrastructure drivers can trust. We are bringing the RANGER standard to new highway corridors —
+                and we are looking for landowners and businesses to build it with us.
+              </p>
+              <div className="cluster btn-row" style={{ marginTop: '2rem' }}>
+                <Link to="/partner" className="btn btn--primary">Partner with RANGER <ArrowRight size={16} aria-hidden="true" /></Link>
+                <Link to="/outlets" className="btn btn--secondary">See the network</Link>
+              </div>
+            </Reveal>
           </div>
-
-          <Link to="/partner" className="btn btn--primary">
-            Partner With RANGER
-          </Link>
         </div>
       </section>
-
-    </main>
+    </div>
   );
 }

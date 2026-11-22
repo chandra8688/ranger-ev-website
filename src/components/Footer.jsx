@@ -1,99 +1,105 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin } from 'lucide-react';
-import { companyInfo } from '../data/company';
+import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import Logo from './Logo';
+import { companyInfo, whatsappLink } from '../data/company';
+import { operationalCount } from '../data/outlets';
+import { trackEvent } from '../lib/analytics';
 
-export default function Footer() {
-  const currentYear = new Date().getFullYear();
-  const { displayPhone, primaryPhone, email } = companyInfo.contact;
+export default function Footer({ onManageCookies }) {
+  const year = new Date().getFullYear();
+  const { displayPhone, primaryPhone, email, displayWhatsapp } = companyInfo.contact;
+  const live = operationalCount();
 
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer__grid">
-
-          {/* Column 1: Brand */}
-          <div className="footer__brand-col">
-            <Link to="/" className="footer__brand-lockup" aria-label="RANGER EV — Home">
-              <div className="footer__logo-wrap">
-                <img
-                  src="/images/brand/ranger-logo-navbar.png"
-                  alt="RANGER EV"
-                  className="footer__logo"
-                  loading="lazy"
-                />
-              </div>
-              <div className="navbar__wordmark footer__wordmark-override">
-                <span className="navbar__wordmark-title">RANGER</span>
-                <span className="navbar__wordmark-accent" aria-hidden="true"></span>
-                <span className="navbar__wordmark-tagline">POWERING EVERY JOURNEY</span>
-              </div>
+          <div>
+            <Link to="/" className="brand" aria-label="RANGER EV home">
+              <Logo className="brand__logo" />
+              <span className="brand__word" aria-hidden="true">
+                <span className="brand__title">RANGER</span>
+                <span className="brand__rule" />
+                <span className="brand__tag">POWERING EVERY JOURNEY</span>
+              </span>
             </Link>
-            <p className="footer__desc">
-              RANGER EV is an infrastructure provider building a reliable, high-speed electric vehicle charging network for India's national highways.
+            <p className="footer__about">
+              RANGER EV builds reliable, 24×7 DC fast-charging hubs on India&apos;s national highways — with food, Wi-Fi and a place to rest while you charge.
+            </p>
+            <p className="badge badge--live" style={{ marginTop: '1.5rem' }}>
+              <span className="dot" aria-hidden="true" />
+              {live} {live === 1 ? 'outlet' : 'outlets'} operational
             </p>
           </div>
 
-          {/* Column 2: Navigation */}
           <div>
-            <h3 className="footer__col-title">Navigation</h3>
-            <div className="footer__links">
-              <Link to="/">Home</Link>
-              <Link to="/about">About RANGER</Link>
-              <Link to="/chargers">Our Chargers</Link>
-              <Link to="/outlets">Charging Outlets</Link>
-            </div>
+            <h2 className="footer__title">Explore</h2>
+            <ul className="footer__links">
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About RANGER</Link></li>
+              <li><Link to="/chargers">Our Chargers</Link></li>
+              <li><Link to="/outlets">Charging Outlets</Link></li>
+            </ul>
           </div>
 
-          {/* Column 3: Corporate */}
           <div>
-            <h3 className="footer__col-title">Corporate & Business</h3>
-            <div className="footer__links">
-              <Link to="/partner">Site Acquisition & Partnership</Link>
-              <Link to="/contact">Business & Customer Support</Link>
-            </div>
+            <h2 className="footer__title">Business</h2>
+            <ul className="footer__links">
+              <li><Link to="/partner">Host a Charger</Link></li>
+              <li><Link to="/contact">Contact &amp; Support</Link></li>
+              <li><Link to="/privacy">Privacy Policy</Link></li>
+            </ul>
           </div>
 
-          {/* Column 4: Contact & Action */}
           <div>
-            <h3 className="footer__col-title">24/7 Support</h3>
-            <div className="footer__contact">
-              <div className="footer__contact-item">
-                <Phone size={16} className="footer__contact-icon" aria-hidden="true" />
-                <div className="footer__contact-value">
-                  <a href={`tel:${primaryPhone}`}>{displayPhone}</a>
-                  <div className="footer__contact-sub" style={{ fontSize: '0.75rem', marginTop: '0.15rem' }}>Network Operations: 24×7</div>
+            <h2 className="footer__title">24×7 Support</h2>
+            <ul className="footer__contact">
+              <li className="footer__contact-item">
+                <Phone size={16} aria-hidden="true" />
+                <div>
+                  <a href={`tel:${primaryPhone}`} onClick={() => trackEvent('click_call', { location: 'footer' })}>{displayPhone}</a>
+                  <small>Charging support, 24×7</small>
                 </div>
-              </div>
-              <div className="footer__contact-item">
-                <Mail size={16} className="footer__contact-icon" aria-hidden="true" />
-                <div className="footer__contact-value">
+              </li>
+              <li className="footer__contact-item">
+                <MessageCircle size={16} aria-hidden="true" />
+                <div>
+                  <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('click_whatsapp', { location: 'footer' })}>
+                    {displayWhatsapp}
+                    <span className="visually-hidden"> on WhatsApp (opens in a new tab)</span>
+                  </a>
+                  <small>WhatsApp</small>
+                </div>
+              </li>
+              <li className="footer__contact-item">
+                <Mail size={16} aria-hidden="true" />
+                <div>
                   <a href={`mailto:${email}`}>{email}</a>
-                  <div className="footer__contact-sub" style={{ fontSize: '0.75rem', marginTop: '0.15rem' }}>Corporate: Mon-Fri 9AM-6PM</div>
+                  <small>Business enquiries, Mon–Fri 9 AM–6 PM</small>
                 </div>
-              </div>
-              <div className="footer__contact-item">
-                <MapPin size={16} className="footer__contact-icon" aria-hidden="true" />
-                <div className="footer__contact-value">
-                  <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer">Corporate Office</a>
-                  <div className="footer__contact-sub" style={{ fontSize: '0.75rem', marginTop: '0.15rem' }}>Hyderabad, Telangana</div>
+              </li>
+              <li className="footer__contact-item">
+                <MapPin size={16} aria-hidden="true" />
+                <div>
+                  <a href={companyInfo.office.mapsUrl} target="_blank" rel="noopener noreferrer">
+                    {companyInfo.office.label}
+                    <span className="visually-hidden"> on Google Maps (opens in a new tab)</span>
+                  </a>
+                  <small>{companyInfo.office.city}</small>
                 </div>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
-
         </div>
 
-        {/* Bottom Bar */}
         <div className="footer__bottom">
-          <p className="footer__bottom-text">
-            &copy; {currentYear} RANGER EV Infrastructure. All rights reserved.
-          </p>
-          <div className="flex-gap-sm">
-            <span className="status-badge status-badge--op" style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.8)', borderColor: 'rgba(255,255,255,0.1)' }}>
-              <span className="status-dot" style={{ background: '#3DAA6B' }}></span>
-              Network Online
-            </span>
+          <p className="xsmall muted">&copy; {year} {companyInfo.legalName}. All rights reserved.</p>
+          <div className="footer__legal">
+            <Link to="/privacy">Privacy</Link>
+            {onManageCookies && (
+              <button type="button" onClick={onManageCookies}>Cookie settings</button>
+            )}
           </div>
         </div>
       </div>

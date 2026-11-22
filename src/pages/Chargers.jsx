@@ -1,90 +1,131 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Zap, SplitSquareHorizontal } from 'lucide-react';
-
+import { ArrowRight, Zap, Cable, Car, Clock, Factory, CheckCircle2 } from 'lucide-react';
+import RouteSEO from '../components/RouteSEO';
 import TransitionTicker from '../components/TransitionTicker';
-import SEO from '../components/SEO';
-import { BASE_URL } from '../config';
+import ChargeCalculator from '../components/ChargeCalculator';
+import Reveal from '../components/Reveal';
+import { chargerDetails } from '../data/chargers';
+import { outletsData } from '../data/outlets';
+
+const FEATURE_ICONS = [Zap, Cable, CheckCircle2, Car];
 
 export default function Chargers() {
+  const tariff = outletsData[0].specs.tariffPerKwh;
+
   return (
-    <main>
-      <SEO 
-        title="RANGER EV | 60 kW DC Fast Chargers"
-        description="Discover the robust 60 kW DC fast chargers powering the RANGER EV highway network. Reliable, dual-gun CCS2 technology built for the long drive."
-        canonicalUrl={`${BASE_URL}/chargers`}
-      />
-      <section className="section section--lg on-light" style={{ background: 'var(--surface-light)' }}>
+    <div className="page">
+      <RouteSEO path="/chargers" />
+
+      <header className="page-hero">
         <div className="container">
-          <div className="grid-2" style={{ alignItems: 'center' }}>
-
-            {/* Left: Content */}
+          <div className="grid-2 grid-center">
             <div>
-              <span className="t-eyebrow t-eyebrow--orange">The Hardware</span>
-              <h1 style={{ marginBottom: '1.25rem' }}>RANGER<br />60 kW DC<br />Fast Charger</h1>
-              <div className="green-rule"></div>
-
-              <p className="t-lead" style={{ marginTop: '1.5rem', marginBottom: '2.5rem' }}>
-                Engineered for the demands of the highway. Our chargers deliver robust,
-                reliable DC power to get you back on the road without unnecessary delays.
+              <p className="eyebrow">The hardware</p>
+              <h1>RANGER 60 kW DC fast charger</h1>
+              <p className="lead">
+                Engineered for highway duty: two CCS2 guns, two cars at once, and 24×7 availability at every RANGER outlet.
               </p>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-                  <div style={{ background: 'rgba(61,139,67,0.15)', color: 'var(--ranger-green)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
-                    <Zap size={24} />
-                  </div>
-                  <div>
-                    <h3 className="h4" style={{ marginBottom: '0.25rem' }}>60 kW Direct Current</h3>
-                    <p>Provides substantial power to rapidly replenish modern EV batteries.</p>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-                  <div style={{ background: 'rgba(61,139,67,0.15)', color: 'var(--ranger-green)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
-                    <SplitSquareHorizontal size={24} />
-                  </div>
-                  <div>
-                    <h3 className="h4" style={{ marginBottom: '0.25rem' }}>Dual CCS2 Connectors</h3>
-                    <p>Equipped with two industry-standard CCS2 charging guns, capable of charging two vehicles simultaneously.</p>
-                  </div>
-                </div>
-
+              <div className="cluster btn-row" style={{ marginTop: '2rem' }}>
+                <a href="#estimate" className="btn btn--primary">Estimate time &amp; cost</a>
+                <a href="#specs" className="btn btn--secondary">Full specifications</a>
               </div>
             </div>
+            <img
+              src="/images/chargers/charger_asthetic_transparent.webp"
+              width="961"
+              height="952"
+              alt="RANGER 60 kW DC fast charger with two CCS2 charging guns"
+              fetchPriority="high"
+              style={{ maxHeight: 560, width: 'auto', marginInline: 'auto' }}
+            />
+          </div>
+        </div>
+      </header>
 
-            {/* Right: Product Image */}
-            <div className="flex-center" style={{ padding: '1rem', height: '100%' }}>
-              <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: '500px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <img
-                  src="/images/chargers/charger_asthetic_transparent.webp"
-                  alt="RANGER 60 kW DC fast charger"
-                  loading="lazy"
-                  decoding="async"
-                  style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain', maxHeight: '800px' }}
-                />
-              </div>
-            </div>
+      <TransitionTicker />
 
+      <section className="section">
+        <div className="container">
+          <div className="grid-4">
+            {chargerDetails.confirmedFeatures.map((f, i) => {
+              const Icon = FEATURE_ICONS[i] ?? Zap;
+              return (
+                <Reveal key={f.title} className="card" delay={String(i)}>
+                  <span className="icon-tile"><Icon size={22} aria-hidden="true" /></span>
+                  <h2 className="h4">{f.title}</h2>
+                  <p className="small">{f.description}</p>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <TransitionTicker />
-
-      <section className="section section--lg on-dark text-center" style={{ background: 'var(--surface-dark)' }}>
-        <div className="container" style={{ maxWidth: '800px' }}>
-          <h2 style={{ marginBottom: '1.5rem' }}>Experience it on the road</h2>
-          <p className="t-lead" style={{ margin: '0 auto 2.5rem' }}>
-            Our 60 kW chargers are currently deployed and operational at RANGER Outlet #01.
-          </p>
-          <Link to="/outlets" className="btn btn--primary">
-            Find a RANGER Outlet
-            <ArrowRight size={18} aria-hidden="true" />
-          </Link>
+      <section id="specs" className="section section--surface section--border">
+        <div className="container">
+          <div className="grid-2">
+            <div>
+              <p className="eyebrow">Specifications</p>
+              <h2>Technical details</h2>
+              <p className="lead" style={{ marginTop: '1.25rem' }}>
+                {chargerDetails.brandingNote}. Every RANGER outlet runs the same hardware, so you know what to expect at each stop.
+              </p>
+              <div className="card card--2" style={{ marginTop: '2rem' }}>
+                <h3 className="h4"><Car size={20} aria-hidden="true" className="inline-icon" />Works with your car</h3>
+                <p className="small" style={{ marginTop: '0.75rem' }}>
+                  Any EV with a CCS2 DC charging port, including:
+                </p>
+                <ul className="cluster" style={{ marginTop: '1rem' }} aria-label="Example compatible cars">
+                  {chargerDetails.compatibleExamples.map((c) => (
+                    <li key={c} className="badge">{c}</li>
+                  ))}
+                </ul>
+                <p className="xsmall muted" style={{ marginTop: '1rem' }}>Illustrative list. Check your owner’s manual for your car’s DC charging port.</p>
+              </div>
+            </div>
+            <div className="card">
+              <table className="spec-table">
+                <caption className="visually-hidden">RANGER 60 kW DC fast charger specifications</caption>
+                <tbody>
+                  {chargerDetails.specTable.map(([k, v]) => (
+                    <tr key={k}><th scope="row">{k}</th><td>{v}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </section>
-    </main>
+
+      <section id="estimate" className="section">
+        <div className="container">
+          <div className="section-head">
+            <p className="eyebrow">Plan your stop</p>
+            <h2>How long, and how much?</h2>
+            <p className="lead">Pick your car and battery levels to estimate charging time and cost at ₹{tariff}/kWh.</p>
+          </div>
+          <ChargeCalculator tariffPerKwh={tariff} />
+        </div>
+      </section>
+
+      <section className="section section--surface section--border">
+        <div className="container text-center container--narrow">
+          <span className="icon-tile mx-auto"><Factory size={22} aria-hidden="true" /></span>
+          <h2>Experience it on the road</h2>
+          <p className="lead mx-auto" style={{ marginTop: '1rem' }}>
+            Two RANGER 60 kW chargers are live at Outlet #01 on NH 765, open 24×7.
+          </p>
+          <div className="cluster btn-row" style={{ justifyContent: 'center', marginTop: '2rem' }}>
+            <Link to="/outlets/outlet-01" className="btn btn--primary">
+              Visit Outlet #01 <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+            <Link to="/outlets" className="btn btn--secondary">
+              <Clock size={16} aria-hidden="true" /> All outlets
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

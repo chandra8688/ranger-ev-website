@@ -1,82 +1,98 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, ArrowRight } from 'lucide-react';
-import { outletsData } from '../data/outlets';
-import RouteGraphic from '../components/illustrations/RouteGraphic';
-import SEO from '../components/SEO';
-import { BASE_URL } from '../config';
+import { MapPin, Zap, IndianRupee, Clock, ArrowRight, Navigation, Handshake } from 'lucide-react';
+import RouteSEO from '../components/RouteSEO';
+import PageHero from '../components/PageHero';
+import Picture from '../components/Picture';
+import Reveal from '../components/Reveal';
+import { outletsData, directionsUrl } from '../data/outlets';
+import { trackEvent } from '../lib/analytics';
+
+const NetworkMap = lazy(() => import('../components/NetworkMap'));
 
 export default function Outlets() {
   return (
-    <main className="on-light" style={{ background: 'var(--surface-light)', minHeight: '100vh', paddingBottom: '6rem' }}>
-      <SEO
-        title="RANGER EV | Highway EV Charging Stations"
-        description="Find RANGER EV fast-charging stations along India's highways. Check locations, real-time status, and premium amenities."
-        canonicalUrl={`${BASE_URL}/outlets`}
+    <div className="page">
+      <RouteSEO path="/outlets" />
+      <PageHero
+        eyebrow="Charging network"
+        title="RANGER outlets"
+        lead="24×7 DC fast charging on India’s highways. Pick an outlet for directions, pricing, photos and amenities."
       />
 
-      <section className="section">
+      <section className="section section--tight">
         <div className="container">
-          <div className="editorial-grid">
+          <h2 className="h4" style={{ marginBottom: '1.25rem' }}>
+            {outletsData.length} operational {outletsData.length === 1 ? 'outlet' : 'outlets'}
+          </h2>
 
-            {/* Left Column: Typography & Description */}
-            <div className="editorial-grid__left">
-              <span className="t-eyebrow t-eyebrow--orange">Charging Network</span>
-              <h1 style={{ marginBottom: '1.5rem' }}>RANGER Outlets</h1>
-              <div className="green-rule" style={{ marginBottom: '2rem' }}></div>
-              <p className="t-lead">
-                Find reliable 60 kW DC fast charging on your route.
-                Our network is expanding across India's major highways, ensuring you never have to compromise on speed or amenities.
-              </p>
-
-              <div style={{ marginTop: '4rem' }}>
-                <h3 className="h4" style={{ marginBottom: '1.5rem', color: 'var(--text-secondary-light)' }}>Operational Hubs</h3>
-                {outletsData.map((outlet) => (
-                  <Link to={`/outlets/${outlet.id}`} key={outlet.id} style={{ display: 'block', background: 'var(--clr-white)', borderRadius: 'var(--radius-lg)', padding: '2rem', border: '1px solid var(--border-light)', boxShadow: 'var(--shadow-sm)', transition: 'transform 0.3s ease, box-shadow 0.3s ease', textDecoration: 'none', color: 'inherit' }} className="outlet-card-hover">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-                      <div>
-                        <span className="status-badge status-badge--op" style={{ marginBottom: '0.75rem' }}>
-                          <span className="status-dot"></span>
-                          Operational
-                        </span>
-                        <h2 className="h3" style={{ color: 'var(--bg-main)' }}>{outlet.title}</h2>
-                        <p style={{ color: 'var(--text-secondary-light)', fontSize: '0.9rem', marginTop: '0.25rem', marginBottom: 0 }}>
-                          {outlet.highway} - {outlet.locationArea.split(',')[0]}
-                        </p>
-                      </div>
-                      <div style={{ background: 'rgba(61,139,67,0.1)', color: 'var(--ranger-green)', padding: '0.75rem', borderRadius: '50%' }}>
-                        <MapPin size={24} />
-                      </div>
+          <div className="stack" style={{ '--stack': '1.25rem' }}>
+            {outletsData.map((o) => {
+              const cardPhoto = o.photos.find((p) => p.src === o.images.card);
+              return (
+                <Reveal as="article" key={o.id} className="card card--interactive outlet-card" aria-labelledby={`${o.id}-title`}>
+                  <div className="outlet-card__media">
+                    <Picture photo={cardPhoto} sizes="(max-width: 760px) 100vw, 40vw" eager />
+                  </div>
+                  <div className="outlet-card__body">
+                    <span className="badge badge--live" style={{ alignSelf: 'flex-start' }}><span className="dot" aria-hidden="true" />Operational</span>
+                    <h3 id={`${o.id}-title`} className="h2">{o.title}</h3>
+                    <p>{o.highway} · {o.locationArea}</p>
+                    <div className="outlet-card__meta">
+                      <span><Zap size={16} aria-hidden="true" />{o.specs.chargersCount} × {o.specs.powerPerCharger} {o.specs.connectorType}</span>
+                      <span><IndianRupee size={16} aria-hidden="true" />{o.specs.tariff}</span>
+                      <span><Clock size={16} aria-hidden="true" />{o.specs.operatingHours}</span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderTop: '1px solid rgba(17,18,20,0.1)', paddingTop: '1rem' }}>
-                      <span className="text-green fw-800">View Details</span>
-                      <ArrowRight size={16} className="text-green" />
+                    <div className="cluster" style={{ marginTop: 'auto', paddingTop: '0.5rem' }}>
+                      <Link to={`/outlets/${o.id}`} className="btn btn--primary">
+                        Station details <ArrowRight size={16} aria-hidden="true" />
+                        <span className="visually-hidden"> for {o.title}</span>
+                      </Link>
+                      <a
+                        href={directionsUrl(o)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn--secondary"
+                        onClick={() => trackEvent('click_directions', { outlet_id: o.id, location: 'outlets_list' })}
+                      >
+                        <Navigation size={16} aria-hidden="true" /> Directions
+                        <span className="visually-hidden"> to {o.title} (opens Google Maps in a new tab)</span>
+                      </a>
                     </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Column: Visual Anchor & Future Locations */}
-            <div className="editorial-grid__right" style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
-              <div style={{ padding: '2rem', background: 'var(--surface-dark)', borderRadius: 'var(--radius-lg)' }}>
-                <RouteGraphic style={{ width: '100%', height: 'auto' }} />
-              </div>
-
-              <div style={{ padding: '2.5rem', border: '1px dashed var(--border-dark-surface)', borderRadius: 'var(--radius-lg)', textAlign: 'center' }}>
-                <div style={{ color: 'var(--text-secondary-light)', marginBottom: '1rem' }}>
-                  <MapPin size={32} style={{ margin: '0 auto' }} opacity={0.5} />
-                </div>
-                <h3 className="h4" style={{ color: 'var(--bg-main)', marginBottom: '0.5rem' }}>More Locations Coming Soon</h3>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary-light)', margin: 0 }}>
-                  We are actively acquiring sites along key corridors to expand the RANGER network.
-                </p>
-              </div>
-            </div>
-
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
-    </main>
+
+      <section className="section section--tight section--border" aria-labelledby="map-title">
+        <div className="container">
+          <div className="section-head" style={{ marginBottom: '1.75rem' }}>
+            <h2 id="map-title" className="h3">Network map</h2>
+            <p style={{ marginTop: '0.5rem' }}>Zoom and select a pin for details and directions.</p>
+          </div>
+          <Suspense fallback={<div className="network-map" aria-hidden="true" />}>
+            <NetworkMap />
+          </Suspense>
+        </div>
+      </section>
+
+      <section className="section section--tight">
+        <div className="container">
+          <div className="placeholder-card">
+            <span className="icon-tile icon-tile--amber"><MapPin size={22} aria-hidden="true" /></span>
+            <h2 className="h4">More outlets are on the way</h2>
+            <p style={{ marginTop: '0.5rem', maxWidth: '52ch', marginInline: 'auto' }}>
+              We are evaluating sites along key highway corridors. Own a suitable property on a highway?
+            </p>
+            <Link to="/partner" className="btn btn--secondary" style={{ marginTop: '1.5rem' }}>
+              <Handshake size={16} aria-hidden="true" /> Host a RANGER charger
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

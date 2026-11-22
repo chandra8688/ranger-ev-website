@@ -6,7 +6,11 @@
  * if a field name changes or a value is out of range, these tests fail early.
  */
 import { describe, it, expect } from 'vitest';
-import { outletsData } from '../src/data/outlets.js';
+import fs from 'node:fs';
+import path from 'node:path';
+import { outletsData, directionsUrl } from '../src/data/outlets.js';
+
+const PUBLIC = path.resolve(__dirname, '..', 'public');
 
 describe('outletsData', () => {
   it('exports a non-empty array', () => {
@@ -59,9 +63,10 @@ describe('outletsData', () => {
           expect(outlet.coordinates.lng).toBeLessThan(98);
         });
 
-        it('has a valid googleMapsUrl', () => {
-          expect(typeof outlet.googleMapsUrl).toBe('string');
-          expect(outlet.googleMapsUrl).toMatch(/^https?:\/\//);
+        it('builds a Google Maps directions URL from its coordinates', () => {
+          const url = directionsUrl(outlet);
+          expect(url.startsWith('https://www.google.com/maps/dir/?api=1&destination=')).toBe(true);
+          expect(url).toContain(`${outlet.coordinates.lat},${outlet.coordinates.lng}`);
         });
 
         // --- Charging specs ---
@@ -104,23 +109,38 @@ describe('outletsData', () => {
           });
         });
 
-        // --- Contacts ---
-        it('has contacts with a primaryPhone string', () => {
-          expect(typeof outlet.contacts).toBe('object');
-          expect(typeof outlet.contacts.primaryPhone).toBe('string');
-          expect(outlet.contacts.primaryPhone.trim().length).toBeGreaterThan(0);
+        // --- Pricing ---
+        it('has a numeric tariff that matches the display tariff', () => {
+          expect(outlet.specs.tariffPerKwh).toBeGreaterThan(0);
+          expect(outlet.specs.tariff).toContain(String(outlet.specs.tariffPerKwh));
         });
 
-        it('has contacts with a whatsappNumber containing only digits after sanitization', () => {
-          const digitsOnly = outlet.contacts.whatsappNumber.replace(/[^0-9]/g, '');
-          expect(digitsOnly.length).toBeGreaterThanOrEqual(10);
+        // --- Photos ---
+        it('has photos with alt text and dimensions', () => {
+          expect(outlet.photos.length).toBeGreaterThan(0);
+          outlet.photos.forEach((p) => {
+            expect(p.src).toMatch(/^\//);
+            expect(p.alt.trim().length).toBeGreaterThan(10);
+            expect(p.width).toBeGreaterThan(0);
+            expect(p.height).toBeGreaterThan(0);
+          });
         });
 
-        // --- Images ---
-        it('has image paths that start with a forward slash', () => {
-          expect(typeof outlet.images).toBe('object');
-          expect(outlet.images.hero).toMatch(/^\//);
-          expect(outlet.images.chargerUnit).toMatch(/^\//);
+        it('ships every photo variant referenced by the data', () => {
+          outlet.photos.forEach((p) => {
+            for (const size of ['640', '1280']) {
+              for (const ext of ['webp', 'avif']) {
+                const file = `${p.src}-${size}.${ext}`;
+                expect(fs.existsSync(path.join(PUBLIC, file)), file).toBe(true);
+              }
+            }
+          });
+        });
+
+        it('uses one of its own photos as hero and card image', () => {
+          const srcs = outlet.photos.map((p) => p.src);
+          expect(srcs).toContain(outlet.images.hero);
+          expect(srcs).toContain(outlet.images.card);
         });
       });
     });

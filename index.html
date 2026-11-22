@@ -1,64 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Route-specific LCP image preload for Outlet Detail -->
-    <script>
-      (function() {
-        if (/^\/outlets\/[^/]+/.test(window.location.pathname)) {
-          var link = document.createElement('link');
-          link.rel = 'preload';
-          link.as = 'image';
-          link.href = '/images/cinematic/vision_charging_hub_1786922492514.webp';
-          link.type = 'image/webp';
-          link.fetchPriority = 'high';
-          link.setAttribute('fetchpriority', 'high');
-          document.head.appendChild(link);
-        }
-      })();
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0B0D10" />
+    <meta name="color-scheme" content="dark" />
+    <!-- %ROUTE_HEAD% (replaced per route by scripts/prerender.mjs) -->
+    <title>RANGER EV | Highway EV Fast Charging in India</title>
+    <meta name="description" content="RANGER EV builds 24×7 highway fast-charging hubs in India. Outlet #01 on NH 765 (Srisailam Highway): 60 kW DC CCS2 charging at ₹23/kWh, café, Wi-Fi and restrooms." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="RANGER EV" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:title" content="RANGER EV | Highway EV Fast Charging in India" />
+    <meta property="og:description" content="RANGER EV builds 24×7 highway fast-charging hubs in India. Outlet #01 on NH 765 (Srisailam Highway): 60 kW DC CCS2 charging at ₹23/kWh, café, Wi-Fi and restrooms." />
+    <meta property="og:image" content="https://ranger-ev-website.vercel.app/og-image-1200x630.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="RANGER EV | Highway EV Fast Charging in India" />
+    <meta name="twitter:description" content="RANGER EV builds 24×7 highway fast-charging hubs in India. Outlet #01 on NH 765 (Srisailam Highway): 60 kW DC CCS2 charging at ₹23/kWh, café, Wi-Fi and restrooms." />
+    <meta name="twitter:image" content="https://ranger-ev-website.vercel.app/og-image-1200x630.jpg" />
+    <!-- /%ROUTE_HEAD% -->
+
     <meta name="google-site-verification" content="B3Eio_nczWeawL3W9mdMFoKtc4EKVovTak1ioKttZsI" />
-    <title>RANGER EV | EV Fast Charging on India's Highways</title>
-    <meta name="description" content="RANGER EV is building highway-focused EV fast-charging infrastructure in India. Visit RANGER Outlet #01 at Ayyasagar on NH 765 for 60 kW DC CCS2 charging, open 24×7." />
-    <meta name="keywords" content="RANGER EV, EV charging station, NH 765, Srisailam Highway, Ayyasagar, CCS2 EV charging, 60 kW DC fast charger, EV charging Telangana, highway EV charging India" />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-328SHQT2V0"></script>
+
+    <!-- Google tag (gtag.js) with Consent Mode v2. Page views are sent once per
+         route from src/lib/analytics.js, so automatic page_view is disabled. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      var rangerConsent = null;
+      try { rangerConsent = localStorage.getItem('ranger-consent-v1'); } catch (e) {}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: rangerConsent === 'granted' ? 'granted' : 'denied'
+      });
       gtag('js', new Date());
-
-      gtag('config', 'G-328SHQT2V0');
+      gtag('config', 'G-328SHQT2V0', { send_page_view: false });
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-328SHQT2V0"></script>
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ranger-ev-website.vercel.app/" />
-    <meta property="og:title" content="RANGER EV | EV Fast Charging on India's Highways" />
-    <meta property="og:description" content="RANGER EV is building a reliable highway EV fast-charging network in India. 60 kW DC CCS2 charging, 24×7 access at RANGER Outlet #01 — Ayyasagar, NH 765." />
-    <meta property="og:image" content="https://ranger-ev-website.vercel.app/og-image-opt.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="RANGER EV | EV Fast Charging on India's Highways" />
-    <meta name="twitter:description" content="Building a reliable highway EV charging network. RANGER Outlet #01 — Ayyasagar, NH 765, Telangana." />
-    <meta name="twitter:image" content="https://ranger-ev-website.vercel.app/og-image-opt.jpg" />
-
-    <!-- Favicons -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="apple-touch-icon" href="/favicon-192.png" />
-
-    <!-- Manrope — Primary Brand Typeface -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="manifest" href="/manifest.webmanifest" />
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div class="noscript">
+        <h1>RANGER EV — Highway EV fast charging</h1>
+        <p>RANGER Outlet #01: Ramnunthala, Amangal, Rangareddy, Telangana – 509321 (NH 765, near Ayyasagar Temple).
+          2 × 60 kW DC CCS2 chargers, open 24×7, ₹23/kWh. Support: +91 6301858198 · rangerevhub@gmail.com</p>
+        <p>Please enable JavaScript to use the full website.</p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

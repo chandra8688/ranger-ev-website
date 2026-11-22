@@ -1,99 +1,83 @@
 import { useEffect } from 'react';
-import { BASE_URL } from '../config';
+import { BASE_URL, DEFAULT_OG_IMAGE } from '../config';
 
-// Utility to create or update meta tags
-const setMetaTag = (attrName, attrValue, content) => {
-  if (!content) return;
-  let element = document.querySelector(`meta[${attrName}="${attrValue}"]`);
-  if (!element) {
-    element = document.createElement('meta');
-    element.setAttribute(attrName, attrValue);
-    document.head.appendChild(element);
+const setMeta = (attr, key, content) => {
+  let el = document.head.querySelector(`meta[${attr}="${key}"]`);
+  if (content == null || content === '') {
+    if (el) el.remove();
+    return;
   }
-  element.setAttribute('content', content);
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', content);
 };
 
+const absolute = (url) => (url && url.startsWith('/') ? `${BASE_URL}${url}` : url);
+
+/**
+ * Imperative <head> manager. Every tag it owns is set or cleared on each
+ * route, so nothing leaks from the previous page (canonical, og:url, robots,
+ * JSON-LD, keywords).
+ */
 export default function SEO({ title, description, keywords, canonicalUrl, jsonLd, ogImage, ogType = 'website', noindex = false }) {
   const jsonLdString = jsonLd ? JSON.stringify(jsonLd) : null;
 
   useEffect(() => {
-    // 1. Title
-    if (title) {
-      document.title = title;
-      setMetaTag('property', 'og:title', title);
-      setMetaTag('name', 'twitter:title', title);
-    }
+    if (title) document.title = title;
+    setMeta('property', 'og:title', title);
+    setMeta('name', 'twitter:title', title);
 
-    // 2. Description
-    if (description) {
-      setMetaTag('name', 'description', description);
-      setMetaTag('property', 'og:description', description);
-      setMetaTag('name', 'twitter:description', description);
-    }
+    setMeta('name', 'description', description);
+    setMeta('property', 'og:description', description);
+    setMeta('name', 'twitter:description', description);
 
-    // 3. Keywords
-    if (keywords) {
-      setMetaTag('name', 'keywords', keywords);
-    }
+    setMeta('name', 'keywords', keywords);
+    setMeta('property', 'og:type', ogType);
 
-    // 4. Open Graph Type
-    setMetaTag('property', 'og:type', ogType);
+    const image = absolute(ogImage || DEFAULT_OG_IMAGE);
+    setMeta('property', 'og:image', image);
+    setMeta('name', 'twitter:image', image);
+    setMeta('name', 'twitter:card', 'summary_large_image');
+    // Only the default image has known 1200x630 dimensions.
+    const isDefault = !ogImage || ogImage === DEFAULT_OG_IMAGE || ogImage.includes('1200x630');
+    setMeta('property', 'og:image:width', isDefault ? '1200' : null);
+    setMeta('property', 'og:image:height', isDefault ? '630' : null);
 
-    // 5. Open Graph Image
-    const defaultImage = '/og-image-opt.jpg';
-    let imageToUse = ogImage || defaultImage;
-    if (imageToUse.startsWith('/')) {
-      imageToUse = `${BASE_URL}${imageToUse}`;
-    }
-    setMetaTag('property', 'og:image', imageToUse);
-    setMetaTag('name', 'twitter:image', imageToUse);
-    setMetaTag('name', 'twitter:card', 'summary_large_image');
-
-    // 6. Canonical URL & og:url
+    let canonical = document.head.querySelector('link[rel="canonical"]');
     if (canonicalUrl && !noindex) {
-      setMetaTag('property', 'og:url', canonicalUrl);
-      
-      let linkCanonical = document.querySelector('link[rel="canonical"]');
-      if (!linkCanonical) {
-        linkCanonical = document.createElement('link');
-        linkCanonical.setAttribute('rel', 'canonical');
-        document.head.appendChild(linkCanonical);
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonical);
       }
-      linkCanonical.setAttribute('href', canonicalUrl);
-    } else if (noindex) {
-      const linkCanonical = document.querySelector('link[rel="canonical"]');
-      if (linkCanonical) {
-        linkCanonical.remove();
-      }
-    }
-
-    // 7. Robots (noindex, follow)
-    if (noindex) {
-      setMetaTag('name', 'robots', 'noindex, follow');
+      canonical.setAttribute('href', canonicalUrl);
+      setMeta('property', 'og:url', canonicalUrl);
     } else {
-      const element = document.querySelector('meta[name="robots"]');
-      if (element) {
-        element.remove();
-      }
+      if (canonical) canonical.remove();
+      setMeta('property', 'og:url', null);
     }
 
-    // 8. Inject or Clean Up JSON-LD Structured Data
+    setMeta('name', 'robots', noindex ? 'noindex, follow' : null);
+
     const scriptId = 'json-ld-structured-data';
-    let existingScript = document.getElementById(scriptId);
-
+    let script = document.getElementById(scriptId);
     if (jsonLdString) {
-      if (!existingScript) {
-        existingScript = document.createElement('script');
-        existingScript.id = scriptId;
-        existingScript.type = 'application/ld+json';
-        document.head.appendChild(existingScript);
+      if (!script) {
+        script = document.createElement('script');
+        script.id = scriptId;
+        script.type = 'application/ld+json';
+        document.head.appendChild(script);
       }
-      if (existingScript.textContent !== jsonLdString) {
-        existingScript.textContent = jsonLdString;
-      }
-    } else if (existingScript) {
-      existingScript.remove();
+      if (script.textContent !== jsonLdString) script.textContent = jsonLdString;
+    } else if (script) {
+      script.remove();
     }
+
+    // Let the analytics listener know the page's metadata is final.
+    window.dispatchEvent(new CustomEvent('ranger:pageview-ready', { detail: { title } }));
   }, [title, description, keywords, canonicalUrl, jsonLdString, ogImage, ogType, noindex]);
 
   return null;

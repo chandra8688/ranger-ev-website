@@ -1,31 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { MapPin } from 'lucide-react';
 import SEO from '../components/SEO';
+import { notFoundMeta } from '../data/seo';
 
 export default function NotFound() {
-  useEffect(() => {
-    document.body.classList.remove('has-sticky-bar');
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
-    <main style={{ background: 'var(--clr-offwhite)', minHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
-      <SEO 
-        title="RANGER EV | Page Not Found"
-        description="The requested page could not be found."
-        noindex={true}
-      />
-      
-      <div className="container section text-center" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-        <h1 style={{ fontSize: 'clamp(4rem, 10vw, 6rem)', color: 'var(--clr-ranger-green)', marginBottom: '0', lineHeight: 1 }}>404</h1>
-        <h2 style={{ marginBottom: '1rem' }}>Page Not Found</h2>
-        <p className="t-lead" style={{ margin: '0 0 2.5rem', maxWidth: '500px', color: 'var(--txt-muted)' }}>
-          The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
-        </p>
-        <Link to="/" className="btn btn--primary">
-          Return to Home
-        </Link>
-      </div>
-    </main>
+    <div className="page">
+      <SEO title={notFoundMeta.title} description={notFoundMeta.description} noindex />
+      <section className="section not-found">
+        <div className="container container--narrow">
+          <p className="not-found__code" aria-hidden="true">404</p>
+          <h1 className="h2" style={{ marginTop: '1rem' }}>This road doesn&apos;t lead anywhere.</h1>
+          <p className="lead mx-auto" style={{ marginTop: '1rem' }}>
+            The page you&apos;re looking for doesn&apos;t exist or has moved.
+          </p>
+          <div className="cluster btn-row" style={{ justifyContent: 'center', marginTop: '2rem' }}>
+            <Link to="/" className="btn btn--primary">Back to home</Link>
+            <Link to="/outlets" className="btn btn--secondary"><MapPin size={16} aria-hidden="true" /> Find an outlet</Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

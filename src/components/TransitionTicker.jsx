@@ -14,7 +14,7 @@ export default function TransitionTicker() {
   const tickerBlock = phrases.map((phrase, idx) => (
     <React.Fragment key={idx}>
       <span className="ticker-phrase">{phrase}</span>
-      <span className="ticker-bullet">•</span>
+      <span className="ticker-bullet" />
     </React.Fragment>
   ));
 

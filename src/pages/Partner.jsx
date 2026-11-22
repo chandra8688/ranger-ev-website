@@ -1,205 +1,148 @@
-import React, { useState } from 'react';
-import { Building2, MapPin, Zap, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import React from 'react';
+import { Building2, MapPin, Zap, Phone, Mail, ArrowRight } from 'lucide-react';
+import RouteSEO from '../components/RouteSEO';
+import PageHero from '../components/PageHero';
+import Reveal from '../components/Reveal';
+import { FormError, FormSuccess, Honeypot, ConsentNote } from '../components/FormFeedback';
 import { companyInfo } from '../data/company';
-import SEO from '../components/SEO';
-import { BASE_URL } from '../config';
 import { submitPartnerForm } from '../services/formService';
+import useFormSubmit from '../lib/useFormSubmit';
+
+const BENEFITS = [
+  { icon: MapPin, title: 'Bring highway travellers to you', body: 'EV drivers plan their trips around reliable fast chargers — and spend time on site while they charge.' },
+  { icon: Building2, title: 'Made for highway businesses', body: 'A natural fit for dhabas, restaurants, hotels, resorts, fuel stations and vacant commercial land.' },
+  { icon: Zap, title: 'We handle the hardware', body: 'RANGER supplies the 60 kW DC chargers, assesses your site and agrees the right deployment model with you.' },
+];
+
+const STEPS = [
+  ['Submit your site', 'Tell us where it is and what’s there today.'],
+  ['Site assessment', 'Our team reviews location, access and power availability.'],
+  ['Agreement & build', 'We agree terms and install RANGER chargers.'],
+];
 
 export default function Partner() {
-  const [formStatus, setFormStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setFormStatus('submitting');
-    setErrorMessage('');
-
-    try {
-      const formData = new FormData(e.target);
-      await submitPartnerForm(formData);
-      setFormStatus('success');
-    } catch (error) {
-      setErrorMessage(error.message);
-      setFormStatus('error');
-    }
-  };
+  const { status, error, onSubmit, onFieldInput, reset, alertRef, successRef } = useFormSubmit(submitPartnerForm, { eventName: 'submit_partner_form' });
+  const { displayPhone, primaryPhone, email } = companyInfo.contact;
 
   return (
-    <main className="on-light" style={{ background: 'var(--surface-light)', minHeight: '100vh', paddingBottom: '4rem' }}>
-      <SEO
-        title="RANGER EV | Partner With Us"
-        description="Join the RANGER EV network. Monetize your highway commercial property by hosting a 60 kW CCS2 DC fast charging station."
-        canonicalUrl={`${BASE_URL}/partner`}
+    <div className="page">
+      <RouteSEO path="/partner" />
+      <PageHero
+        eyebrow="Partner with us"
+        title="Host a RANGER fast charger."
+        lead="Turn your highway property into a next-generation rest stop. We partner with landowners and businesses to build reliable EV charging."
       />
 
-      {/* Header */}
-      <section className="section" style={{ paddingBottom: '3rem' }}>
-        <div className="container text-center" style={{ maxWidth: '800px' }}>
-          <span className="t-eyebrow t-eyebrow--orange">Partner With Us</span>
-          <h1 style={{ marginBottom: '1.25rem' }}>Host a RANGER Fast Charger</h1>
-          <p className="t-lead" style={{ margin: '0 auto' }}>
-            Turn your highway property into a next-generation rest stop.
-            We partner with landowners and commercial properties to build reliable EV charging infrastructure.
-          </p>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="container">
-        <div className="editorial-grid">
-
-          {/* Left: Info */}
-          <div className="editorial-grid__left" style={{ display: 'flex', flexDirection: 'column' }}>
-            <h2 className="h2" style={{ marginBottom: '1.5rem', lineHeight: 1.1 }}>Why Partner With RANGER?</h2>
-            <div className="green-rule" style={{ marginBottom: '3rem' }}></div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', flexGrow: 1 }}>
-              <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-                <div style={{ color: 'var(--ranger-green)', marginTop: '0.25rem' }}><MapPin size={24} aria-hidden="true" /></div>
-                <div>
-                  <h3 className="h4" style={{ marginBottom: '0.25rem' }}>Attract Highway Travelers</h3>
-                  <p style={{ color: 'var(--text-secondary-light)' }}>EV drivers plan their routes around reliable fast chargers. Hosting a RANGER unit brings a steady stream of premium customers to your location.</p>
-                </div>
+      <section className="section section--tight">
+        <div className="container">
+          <div className="grid-2">
+            <div>
+              <h2 className="h3">Why partner with RANGER?</h2>
+              <div className="stack" style={{ '--stack': '1.25rem', marginTop: '1.75rem' }}>
+                {BENEFITS.map(({ icon: Icon, title, body }, i) => (
+                  <Reveal key={title} className="card card--2" delay={String(i)} style={{ display: 'flex', gap: '1rem' }}>
+                    <span className="icon-tile" style={{ marginBottom: 0 }}><Icon size={22} aria-hidden="true" /></span>
+                    <div>
+                      <h3 className="h4">{title}</h3>
+                      <p className="small" style={{ marginTop: '0.4rem' }}>{body}</p>
+                    </div>
+                  </Reveal>
+                ))}
               </div>
 
-              <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-                <div style={{ color: 'var(--ranger-green)', marginTop: '0.25rem' }}><Building2 size={24} aria-hidden="true" /></div>
-                <div>
-                  <h3 className="h4" style={{ marginBottom: '0.25rem' }}>Ideal for Commercial Properties</h3>
-                  <p style={{ color: 'var(--text-secondary-light)' }}>Perfect for highway dhabas, restaurants, resorts, and existing fuel stations looking to future-proof their business.</p>
-                </div>
-              </div>
+              <h2 className="h3" style={{ marginTop: '3rem' }}>How it works</h2>
+              <ol className="steps" style={{ gridTemplateColumns: '1fr', marginTop: '1.5rem', gap: '1.5rem' }}>
+                {STEPS.map(([t, d]) => (
+                  <li key={t} className="step" style={{ paddingTop: 0, paddingLeft: '4rem' }}>
+                    <h3 className="h4">{t}</h3>
+                    <p className="small">{d}</p>
+                  </li>
+                ))}
+              </ol>
 
-              <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-                <div style={{ color: 'var(--ranger-green)', marginTop: '0.25rem' }}><Zap size={24} aria-hidden="true" /></div>
-                <div>
-                  <h3 className="h4" style={{ marginBottom: '0.25rem' }}>Turnkey Infrastructure</h3>
-                  <p style={{ color: 'var(--text-secondary-light)' }}>We provide industry-leading 60 kW DC hardware. Our team assesses your location and discusses the optimal deployment strategy.</p>
+              <div className="card" style={{ marginTop: '2.5rem' }}>
+                <h3 className="h4">Prefer to talk first?</h3>
+                <div className="cluster" style={{ marginTop: '1rem' }}>
+                  <a href={`tel:${primaryPhone}`} className="btn btn--secondary btn--sm"><Phone size={16} aria-hidden="true" />{displayPhone}</a>
+                  <a href={`mailto:${email}?subject=Site%20partnership`} className="btn btn--secondary btn--sm"><Mail size={16} aria-hidden="true" />Email us</a>
                 </div>
               </div>
             </div>
 
-            {/* Editorial Anchor to fix empty lower-left space */}
-            <div style={{ marginTop: 'auto', paddingTop: '4rem' }}>
-              <div className="partner-editorial-01" style={{ fontSize: '10rem', fontWeight: 800, lineHeight: 0.8, color: 'rgba(17,18,20,0.03)', letterSpacing: '-0.05em' }}>
-                01
-              </div>
-            </div>
-
-            <div style={{ background: '#ffffff', padding: '2rem', borderRadius: 'var(--radius-lg)', marginTop: '2rem', border: '1px solid rgba(17,18,20,0.08)' }}>
-              <h3 className="h4" style={{ marginBottom: '1rem', color: '#111214' }}>Direct Contact</h3>
-              <p style={{ color: '#4F565D', marginBottom: '1.5rem' }}>
-                Prefer to speak directly with our partnerships team?
-              </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <a href={`tel:${companyInfo.contact.primaryPhone}`} className="btn-text" style={{ color: 'var(--ranger-green)' }}>
-                  Call: {companyInfo.contact.displayPhone}
-                </a>
-                <a href={`mailto:${companyInfo.contact.email}`} className="btn-text" style={{ color: 'var(--ranger-green)' }}>
-                  Email: {companyInfo.contact.email}
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Right: Form */}
-          <div className="editorial-grid__right">
-            <div style={{ background: '#ffffff', padding: '2.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-md)', border: '1px solid rgba(17,18,20,0.08)' }}>
-
-              {formStatus === 'success' ? (
-                <div className="text-center" style={{ padding: '3rem 1rem' }}>
-                  <div style={{ color: 'var(--ranger-green)', display: 'inline-flex', marginBottom: '1.5rem' }}>
-                    <CheckCircle2 size={48} aria-hidden="true" />
-                  </div>
-                  <h3 style={{ marginBottom: '1rem', color: '#111214' }}>Inquiry Received</h3>
-                  <p style={{ color: '#4F565D' }}>
-                    Thank you for your interest in partnering with RANGER. Our team will review your property details and contact you shortly.
-                  </p>
-                  <button onClick={() => setFormStatus('idle')} className="btn btn--outline" style={{ marginTop: '2rem', color: '#111214', borderColor: '#111214' }}>
-                    Submit Another Location
-                  </button>
-                </div>
+            <div className="card">
+              {status === 'success' ? (
+                <FormSuccess title="Site submitted" onReset={reset} resetLabel="Submit another location" successRef={successRef}>
+                  Thank you. Our partnerships team will review your property and contact you.
+                </FormSuccess>
               ) : (
                 <>
-                  <h2 className="h3" style={{ marginBottom: '0.5rem', color: '#111214' }}>Submit a Location</h2>
-                  <p style={{ color: '#4F565D', marginBottom: '2rem' }}>
-                    Provide details about your property to help us evaluate its suitability for a fast-charging hub.
+                  <h2 className="h3">Submit a location</h2>
+                  <p className="small" style={{ marginTop: '0.5rem', marginBottom: '1.75rem' }}>
+                    A few details help us assess your site. Fields marked <span className="text-amber">*</span> are required.
                   </p>
 
-                  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                  <form className="form" onSubmit={onSubmit} onInput={onFieldInput} noValidate>
+                    {status === 'error' && <FormError message={error} alertRef={alertRef} />}
+                    <Honeypot />
+                    <input type="hidden" name="_subject" value="New site partnership enquiry — RANGER EV" />
 
-                    {formStatus === 'error' && (
-                      <div style={{ padding: '1rem', background: '#FEF2F2', border: '1px solid #F87171', borderRadius: 'var(--radius-sm)', color: '#991B1B', display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-                        <AlertCircle size={20} style={{ flexShrink: 0, marginTop: '0.125rem' }} aria-hidden="true" />
-                        <div>
-                          <strong style={{ display: 'block', marginBottom: '0.25rem' }}>Submission Failed</strong>
-                          <span style={{ fontSize: '0.9rem' }}>{errorMessage}</span>
-                        </div>
+                    <div className="form-row">
+                      <div className="field">
+                        <label htmlFor="firstName">First name<span className="req" aria-hidden="true">*</span></label>
+                        <input type="text" id="firstName" name="firstName" className="input" autoComplete="given-name" required />
                       </div>
-                    )}
-
-                    <div className="form-grid">
-                      <div className="form-field">
-                        <label className="form-label" htmlFor="firstName">First Name</label>
-                        <input type="text" id="firstName" name="firstName" className="form-input" autoComplete="given-name" required />
-                      </div>
-                      <div className="form-field">
-                        <label className="form-label" htmlFor="lastName">Last Name</label>
-                        <input type="text" id="lastName" name="lastName" className="form-input" autoComplete="family-name" required />
+                      <div className="field">
+                        <label htmlFor="lastName">Last name<span className="req" aria-hidden="true">*</span></label>
+                        <input type="text" id="lastName" name="lastName" className="input" autoComplete="family-name" required />
                       </div>
                     </div>
 
-                    <div className="form-grid">
-                      <div className="form-field">
-                        <label className="form-label" htmlFor="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" className="form-input" autoComplete="tel" required />
+                    <div className="form-row">
+                      <div className="field">
+                        <label htmlFor="phone">Phone<span className="req" aria-hidden="true">*</span></label>
+                        <input type="tel" id="phone" name="phone" className="input" autoComplete="tel" inputMode="tel" pattern="[0-9+\-\s()]{8,}" required aria-describedby="phone-hint" />
+                        <span id="phone-hint" className="hint">e.g. +91 98765 43210</span>
                       </div>
-                      <div className="form-field">
-                        <label className="form-label" htmlFor="email">Email Address</label>
-                        <input type="email" id="email" name="email" className="form-input" autoComplete="email" required />
+                      <div className="field">
+                        <label htmlFor="email">Email<span className="req" aria-hidden="true">*</span></label>
+                        <input type="email" id="email" name="email" className="input" autoComplete="email" required />
                       </div>
                     </div>
 
-                    <div className="form-field">
-                      <label className="form-label" htmlFor="propertyType">Property Type</label>
-                      <select id="propertyType" name="propertyType" className="form-select" required>
-                        <option value="">Select a property type...</option>
-                        <option value="highway_restaurant">Highway Restaurant / Dhaba</option>
-                        <option value="hotel_resort">Hotel / Resort</option>
-                        <option value="fuel_station">Existing Fuel Station</option>
-                        <option value="commercial_land">Vacant Commercial Land</option>
+                    <div className="field">
+                      <label htmlFor="propertyType">Property type<span className="req" aria-hidden="true">*</span></label>
+                      <select id="propertyType" name="propertyType" className="select" required defaultValue="">
+                        <option value="" disabled>Select a property type…</option>
+                        <option value="highway_restaurant">Highway restaurant / dhaba</option>
+                        <option value="hotel_resort">Hotel / resort</option>
+                        <option value="fuel_station">Existing fuel station</option>
+                        <option value="commercial_land">Vacant commercial land</option>
                         <option value="other">Other</option>
                       </select>
                     </div>
 
-                    <div className="form-field">
-                      <label className="form-label" htmlFor="location">Highway / Location Details</label>
-                      <input type="text" id="location" name="location" className="form-input" placeholder="e.g. NH 44, Near Hyderabad" required />
+                    <div className="field">
+                      <label htmlFor="location">Highway &amp; location<span className="req" aria-hidden="true">*</span></label>
+                      <input type="text" id="location" name="location" className="input" placeholder="e.g. NH 44, near Hyderabad" required />
                     </div>
 
-                    <div className="form-field">
-                      <label className="form-label" htmlFor="message">Additional Information</label>
-                      <textarea id="message" name="message" className="form-textarea" placeholder="Tell us about the space available, current power capacity, etc."></textarea>
+                    <div className="field">
+                      <label htmlFor="message">Anything else?</label>
+                      <textarea id="message" name="message" className="textarea" placeholder="Space available, current power connection, Google Maps link…" />
                     </div>
 
-                    <button
-                      type="submit"
-                      className="btn btn--primary"
-                      style={{ marginTop: '1rem', width: '100%', justifyContent: 'center' }}
-                      disabled={formStatus === 'submitting'}
-                      aria-disabled={formStatus === 'submitting'}
-                    >
-                      {formStatus === 'submitting' ? 'Submitting...' : 'Submit Location Inquiry'}
-                      {formStatus !== 'submitting' && <ArrowRight size={18} aria-hidden="true" />}
+                    <ConsentNote />
+
+                    <button type="submit" className="btn btn--primary btn--lg btn--block" disabled={status === 'submitting'}>
+                      {status === 'submitting' ? 'Submitting…' : <>Submit location <ArrowRight size={18} aria-hidden="true" /></>}
                     </button>
                   </form>
                 </>
               )}
             </div>
           </div>
-
         </div>
       </section>
-    </main>
+    </div>
   );
 }
