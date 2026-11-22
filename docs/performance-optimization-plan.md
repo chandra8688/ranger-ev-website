@@ -531,8 +531,18 @@ Inspection of `index.html`, `src/App.jsx`, and `src/components/Analytics.jsx` re
 
 ---
 
+### 7.5 Exact Next Implementation Scope (Stage 5D-2B)
 ### 7.5 Stage 5D-2B Experiment Results & Final Architectural Decision
 
+**Stage 5D-2B Target:** Implement Strategy C for Google Tag Manager in `index.html`.
+- Preserve the synchronous `dataLayer` and `gtag()` queueing stub.
+- Defer `<script src="https://www.googletagmanager.com/gtag/js?id=G-328SHQT2V0">` via `requestIdleCallback` (timeout 3000 ms) + user interaction trigger.
+- Zero source code changes to React components or `src/components/Analytics.jsx`.
+- Validation:
+  - Verify `dataLayer` queues early events correctly.
+  - Verify GTM script loads on idle or interaction.
+  - Run Lighthouse on Contact mobile (confirm TBT drops by ~45 ms and LCP improves by ~750 ms).
+  - Verify 54/54 tests pass and ESLint is clean.
 #### Controlled 9-Run Experiment Data (`/contact` Mobile)
 
 | Condition | Rep | Perf | FCP (ms) | LCP (ms) | TBT (ms) | gtag Request Timing | GTM Tasks | GTM Blocking (ms) | Collect Requests |
